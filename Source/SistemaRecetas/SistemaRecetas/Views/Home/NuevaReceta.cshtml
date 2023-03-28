@@ -1,0 +1,122 @@
+﻿@{
+    ViewData["Title"] = "Nueva Receta";
+}
+
+<div class="">
+    <div class="">
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Nombre:</h5>
+            </div>
+            <div class="col-md-5">
+                <input type="text" id="nombre" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Área:</h5>
+            </div>
+            <div class="col-md-3">
+                <select id="area" required class="form-control">
+                    <option value="1">Gastronomia</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Subarea:</h5>
+            </div>
+            <div class="col-md-3">
+                <select id="subarea" required class="form-control">
+                    <option value="1">Cocina</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Descripción:</h5>
+            </div>
+            <div class="col-md-7">
+                <textarea id="descripcion" class="form-control" rows="4"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Materiales:</h5>
+            </div>
+            <div class="col-md-7">
+                <textarea id="materiales" class="form-control" rows="6"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Procedimiento:</h5>
+            </div>
+            <div class="col-md-7">
+                <textarea id="procedimientos" class="form-control" rows="6"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+            </div>
+            <div class="col-md-2">
+                <button class="btn btnPrincipal" onclick="guardarReceta();">Guardar</button>
+            </div>
+        </div>
+
+
+        <hr />
+
+
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+
+        });
+
+        function guardarReceta() {
+            var nombre = $('#nombre').val();
+            var area = $('#area').val();
+            var subarea = $('#subarea').val();
+            var descripcion = $('#descripcion').val();
+            var materiales = $('#materiales').val();
+            var procedimientos = $('#procedimientos').val();
+
+            $.ajax({
+                type: 'POST',
+                url: Ruta + "/Home/crearReceta/",
+                data: {
+                    inNombre: nombre, inArea: area, inSubarea:subarea, inDescripcion:descripcion,
+                    inMateriales:materiales, inProcedimientos:procedimientos
+                },
+                success: function (result) {
+                    if (result == 0) {
+                        swal.fire({
+                            icon: 'success',
+                            html: '<h5>Datos Ingresados Correctamente</h5>',
+                            showConfirmButton: true
+                        });
+                        sleep(2000).then(() => {
+                            window.location.href = "@Url.Action("Inicio", "Home")";
+                        });
+                    } else {
+                        swal.fire({
+                            icon: 'error',
+                            html: '<h5>No se guardaron los cambios correctamente</h5>'
+                        });
+                    }
+
+                },
+                error: function () {
+                    swal.fire({
+                        icon: 'error',
+                        html: '<h5>No se guardaron los cambios realizados</h5>'
+                    });
+                }
+            });
+        }
+
+    </script>
+</div>
