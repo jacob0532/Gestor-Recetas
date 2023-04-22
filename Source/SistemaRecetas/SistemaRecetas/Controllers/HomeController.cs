@@ -26,17 +26,105 @@ namespace SistemaRecetas.Controllers
         {
             _logger = logger;
 
+            string servidor = "localhost\\SQLEXPRESS02";
+            string baseDatos = "GestorRecetas";
+            string usuario = "daniel";
+            string clave = "daniel";
+
+            /*
             string servidor = "LAPTOP-B647LCTK\\SQLEXPRESS";
             string baseDatos = "Prueba";
             string usuario = "sa";
-            string clave = "sa1234";
+            string clave = "sa1234"; 
+            */
+
 
             conexionString = dbConexion.obtenerConexión(servidor, baseDatos, usuario, clave);
         }
 
+        public List<Departamento> ObtenerDepartamentos()
+        {
+            List<Departamento> departamentos = new List<Departamento>();
+            string query = "SELECT idDepartamento, nombre FROM departamento";
+            using (SqlConnection connection = new SqlConnection(conexionString.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Departamento departamento = new Departamento();
+                            departamento.IdDepartamento = Convert.ToInt32(reader["idDepartamento"]);
+                            departamento.Nombre = Convert.ToString(reader["nombre"]);
+                            departamentos.Add(departamento);
+                        }
+                    }
+                }
+            }
+            return departamentos;
+        }
+
+        public IActionResult ObtenerSubDepartamentos()
+        {
+            List<subDepartamento> subdepartamentos = new List<subDepartamento>();
+            string query = "SELECT idSubDepartamento, nombre, idDepartamento FROM subDepartamento";
+            using (SqlConnection connection = new SqlConnection(conexionString.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            subDepartamento subdepartamento = new subDepartamento();
+                            subdepartamento.IDsubDepartamento = Convert.ToInt32(reader["idSubDepartamento"]);
+                            subdepartamento.Nombre = Convert.ToString(reader["nombre"]);
+                            subdepartamento.IdDepartamento = Convert.ToInt32(reader["idDepartamento"]);
+                            subdepartamentos.Add(subdepartamento);
+                        }
+                    }
+                }
+            }
+            return Json(subdepartamentos);
+        }
+
+        public IActionResult ObtenerSubDepartamentosPorDepartamento(int idDepartamento)
+        {
+            List<subDepartamento> subdepartamentos = new List<subDepartamento>();
+            string query = "SELECT idSubDepartamento, nombre, idDepartamento FROM subDepartamento WHERE idDepartamento=@idDepartamento";
+            using (SqlConnection connection = new SqlConnection(conexionString.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@idDepartamento", idDepartamento);
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            subDepartamento subdepartamento = new subDepartamento();
+                            subdepartamento.IDsubDepartamento = Convert.ToInt32(reader["idSubDepartamento"]);
+                            subdepartamento.Nombre = Convert.ToString(reader["nombre"]);
+                            subdepartamento.IdDepartamento = Convert.ToInt32(reader["idDepartamento"]);
+                            subdepartamentos.Add(subdepartamento);
+                        }
+                    }
+                }
+            }
+            return Json(subdepartamentos);
+        }
+
+
         public IActionResult Index()
         {
-            return View();
+            List<Departamento> departamentos = ObtenerDepartamentos();
+
+            ViewBag.Subdepartamentos = new List<subDepartamento>();
+
+            return View(departamentos);
         }
 
         public IActionResult Inicio()

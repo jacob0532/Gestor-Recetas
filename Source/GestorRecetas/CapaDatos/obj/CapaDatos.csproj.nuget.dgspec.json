@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\rolbi\\OneDrive\\Escritorio\\TEC\\Computación y Sociedad\\Proyecto\\Gestor-Recetas\\Source\\GestorRecetas\\CapaDatos\\CapaDatos.csproj": {}
+    "C:\\xampp\\htdocs\\Gestor-Recetas\\Source\\GestorRecetas\\CapaDatos\\CapaDatos.csproj": {}
   },
   "projects": {
-    "C:\\Users\\rolbi\\OneDrive\\Escritorio\\TEC\\Computación y Sociedad\\Proyecto\\Gestor-Recetas\\Source\\GestorRecetas\\CapaDatos\\CapaDatos.csproj": {
+    "C:\\xampp\\htdocs\\Gestor-Recetas\\Source\\GestorRecetas\\CapaDatos\\CapaDatos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rolbi\\OneDrive\\Escritorio\\TEC\\Computación y Sociedad\\Proyecto\\Gestor-Recetas\\Source\\GestorRecetas\\CapaDatos\\CapaDatos.csproj",
+        "projectUniqueName": "C:\\xampp\\htdocs\\Gestor-Recetas\\Source\\GestorRecetas\\CapaDatos\\CapaDatos.csproj",
         "projectName": "CapaDatos",
-        "projectPath": "C:\\Users\\rolbi\\OneDrive\\Escritorio\\TEC\\Computación y Sociedad\\Proyecto\\Gestor-Recetas\\Source\\GestorRecetas\\CapaDatos\\CapaDatos.csproj",
-        "packagesPath": "C:\\Users\\rolbi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rolbi\\OneDrive\\Escritorio\\TEC\\Computación y Sociedad\\Proyecto\\Gestor-Recetas\\Source\\GestorRecetas\\CapaDatos\\obj\\",
+        "projectPath": "C:\\xampp\\htdocs\\Gestor-Recetas\\Source\\GestorRecetas\\CapaDatos\\CapaDatos.csproj",
+        "packagesPath": "C:\\Users\\Daniel\\.nuget\\packages\\",
+        "outputPath": "C:\\xampp\\htdocs\\Gestor-Recetas\\Source\\GestorRecetas\\CapaDatos\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\rolbi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Daniel\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -61,7 +61,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

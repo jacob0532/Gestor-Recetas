@@ -13,3 +13,18 @@ C:\Users\rolbi\OneDrive\Escritorio\TEC\Computación y Sociedad\Proyecto\Gestor-R
 C:\Users\rolbi\OneDrive\Escritorio\TEC\Computación y Sociedad\Proyecto\Gestor-Recetas\Source\SistemaRecetas\CapaUtilitarios\obj\Debug\net6.0\CapaUtilitarios.pdb
 C:\Users\rolbi\OneDrive\Escritorio\TEC\Computación y Sociedad\Proyecto\Gestor-Recetas\Source\SistemaRecetas\CapaUtilitarios\obj\Debug\net6.0\CapaUtilitarios.genruntimeconfig.cache
 C:\Users\rolbi\OneDrive\Escritorio\TEC\Computación y Sociedad\Proyecto\Gestor-Recetas\Source\SistemaRecetas\CapaUtilitarios\obj\Debug\net6.0\ref\CapaUtilitarios.dll
+C:\xampp\htdocs\Gestor-Recetas\Source\SistemaRecetas\CapaUtilitarios\bin\Debug\net6.0\CapaUtilitarios.exe
+C:\xampp\htdocs\Gestor-Recetas\Source\SistemaRecetas\CapaUtilitarios\bin\Debug\net6.0\CapaUtilitarios.deps.json
+C:\xampp\htdocs\Gestor-Recetas\Source\SistemaRecetas\CapaUtilitarios\bin\Debug\net6.0\CapaUtilitarios.runtimeconfig.json
+C:\xampp\htdocs\Gestor-Recetas\Source\SistemaRecetas\CapaUtilitarios\bin\Debug\net6.0\CapaUtilitarios.dll
+C:\xampp\htdocs\Gestor-Recetas\Source\SistemaRecetas\CapaUtilitarios\bin\Debug\net6.0\CapaUtilitarios.pdb
+C:\xampp\htdocs\Gestor-Recetas\Source\SistemaRecetas\CapaUtilitarios\obj\Debug\net6.0\CapaUtilitarios.csproj.AssemblyReference.cache
+C:\xampp\htdocs\Gestor-Recetas\Source\SistemaRecetas\CapaUtilitarios\obj\Debug\net6.0\CapaUtilitarios.GeneratedMSBuildEditorConfig.editorconfig
+C:\xampp\htdocs\Gestor-Recetas\Source\SistemaRecetas\CapaUtilitarios\obj\Debug\net6.0\CapaUtilitarios.AssemblyInfoInputs.cache
+C:\xampp\htdocs\Gestor-Recetas\Source\SistemaRecetas\CapaUtilitarios\obj\Debug\net6.0\CapaUtilitarios.AssemblyInfo.cs
+C:\xampp\htdocs\Gestor-Recetas\Source\SistemaRecetas\CapaUtilitarios\obj\Debug\net6.0\CapaUtilitarios.csproj.CoreCompileInputs.cache
+C:\xampp\htdocs\Gestor-Recetas\Source\SistemaRecetas\CapaUtilitarios\obj\Debug\net6.0\CapaUtilitarios.dll
+C:\xampp\htdocs\Gestor-Recetas\Source\SistemaRecetas\CapaUtilitarios\obj\Debug\net6.0\refint\CapaUtilitarios.dll
+C:\xampp\htdocs\Gestor-Recetas\Source\SistemaRecetas\CapaUtilitarios\obj\Debug\net6.0\CapaUtilitarios.pdb
+C:\xampp\htdocs\Gestor-Recetas\Source\SistemaRecetas\CapaUtilitarios\obj\Debug\net6.0\CapaUtilitarios.genruntimeconfig.cache
+C:\xampp\htdocs\Gestor-Recetas\Source\SistemaRecetas\CapaUtilitarios\obj\Debug\net6.0\ref\CapaUtilitarios.dll

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "z5yJcQIFwuGaS/5jziOxJiU4qR7dcuj1evS7+L7aC5GGQPZXzcKzJuAhvXWdTzIKNvQtXeW1Q3kQjCIM5aZEWg==",
+  "dgSpecHash": "U1J83gaddimF528IupPfpfyP9fkjrS1exw8OmOeMmJyuZuCmsPau3/lwRjjtZsr4wi2J4XqEVfIiWiWLBSNWBg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\rolbi\\OneDrive\\Escritorio\\TEC\\Computación y Sociedad\\Proyecto\\Gestor-Recetas\\Source\\GestorRecetas\\GestorRecetas\\GestorRecetas.csproj",
+  "projectFilePath": "C:\\xampp\\htdocs\\Gestor-Recetas\\Source\\GestorRecetas\\GestorRecetas\\GestorRecetas.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

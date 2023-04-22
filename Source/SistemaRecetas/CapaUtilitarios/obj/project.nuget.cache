@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Mh6Ef1nKu68gDlTcCtdz/tHOtJ450g7Q2eTd6w60zBIbVCLzp9pLZwl+jL1vUaxwbaQpIAmK4fmpubAziX6UtQ==",
+  "dgSpecHash": "OCsNDWPEO6hdVc/7RgMEMmVKbMRApN5mhKr9rtswZz7gUZ25W5MkMdZYXgWaIT2+ujkHraq3SrrE9vmVnjvkuQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\rolbi\\OneDrive\\Escritorio\\TEC\\Computación y Sociedad\\Proyecto\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaUtilitarios\\CapaUtilitarios.csproj",
+  "projectFilePath": "C:\\xampp\\htdocs\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaUtilitarios\\CapaUtilitarios.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
