@@ -9,23 +9,19 @@
                 <h5>Área:</h5>
             </div>
             <div class="col-md-3">
-                <select id="nominas" required class="form-control">
-                    <option value="Gastronomia">Gastronomia</option>
-                </select>
+                <select id="departamentos" required class="form-control"> </select>
             </div>
 
             <div class="col-md-2">
                 <h5>Subarea:</h5>
             </div>
             <div class="col-md-3">
-                <select id="reporte" required class="form-control">
-                    <option value="Cocina">Cocina</option>
-                </select>
+                <select id="subdepartamentos" required class="form-control"> </select>
             </div>
         </div>
 
         <hr />
-        
+
         <div class="row">
             <div class="ContenidoTablaRecetas">
                 <table id="TablaRecetas" class="table-hover table-responsive" style="width:100%">
@@ -91,7 +87,7 @@
                                 "<td hidden>" + json[i].id + "</td>" +
                                 "<td>" + json[i].nombre + "</td>" +
                                 "<td>" + json[i].descripcion + "</td>" +
-                                
+
                                 "<td><a class='btn btnPrincipal' ><i class='fa-solid fa-pen-to-square' title='Editar'></i></a></td>" +
                                 "<td><a class='btn btnPrincipal' ><i class='fa-solid fa-delete-left' title='Eliminar'></i></a></td>" +
 
@@ -115,4 +111,37 @@
             });
         }
     </script>
+
+    <script>
+        $(document).ready(function () {
+            // Carga los departamentos en el primer select
+            $.getJSON("/Home/ObtenerDepartamentos", function (data) {
+                var options = "";
+                $.each(data, function (key, departamento) {
+                    options += "<option value='" + departamento.idDepartamento + "'>" + departamento.nombre + "</option>";
+                });
+                $("#departamentos").append(options);
+            });
+
+            // Agrega un evento change() al primer select para cargar los subdepartamentos
+            $("#departamentos").change(function () {
+                var idDepartamento = $(this).val(); // Obtiene el id del departamento seleccionado
+                if (idDepartamento) { // Verifica que se haya seleccionado un departamento
+                    $.getJSON("/Home/ObtenerSubDepartamentosPorDepartamento?idDepartamento=" + idDepartamento, function (data) {
+                        var options = "";
+                        $.each(data, function (key, subdepartamento) {
+                            options += "<option value='" + subdepartamento.idSubDepartamento + "'>" + subdepartamento.nombre + "</option>";
+                        });
+                        $("#subdepartamentos").html(options); // Reemplaza las opciones del segundo select
+                    });
+                } else {
+                    $("#subdepartamentos").html(""); // Si no se seleccionó un departamento, vacía el segundo select
+                }
+            });
+        });
+
+    </script>
+
+
 </div>
+
