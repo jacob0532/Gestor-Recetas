@@ -26,12 +26,16 @@ namespace SistemaRecetas.Controllers
         {
             _logger = logger;
 
+            /*
             string servidor = "LAPTOP-B647LCTK\\SQLEXPRESS";
             string baseDatos = "Prueba";
             string usuario = "sa";
             string clave = "sa1234";
+            conexionString = dbConexion.obtenerConexión(servidor, baseDatos, usuario, clave);*/
 
-            conexionString = dbConexion.obtenerConexión(servidor, baseDatos, usuario, clave);
+            string servidor = "LAPTOP-140FDP4P\\JACOBBD";
+            string baseDatos = "GestorRecetas";
+            conexionString = dbConexion.obtenerConexion2(servidor, baseDatos);
         }
 
         public IActionResult Index()
