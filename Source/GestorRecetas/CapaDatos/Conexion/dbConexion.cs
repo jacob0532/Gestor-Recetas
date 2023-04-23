@@ -16,7 +16,6 @@ namespace CapaDatos.Conexion
             conn.InitialCatalog = inDatabase;
             conn.UserID = inUser;
             conn.Password = inPassword;
-
             return conn;
         }
     }
