@@ -90,3 +90,13 @@
 .row {
     margin-bottom: 1%;
 }
+
+.modal-with-bg {
+    background-image: url('/img/receta.jpg');
+    background-size: cover;
+}
+
+.modal-xl .modal-dialog {
+    max-width: 1200px; /* o cualquier otro valor que desees */
+}
+

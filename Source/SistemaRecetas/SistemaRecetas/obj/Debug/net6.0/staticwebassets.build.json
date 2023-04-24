@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "MPvzBJihh5eXno991OFCzsyhJMy5vd4WgfMsiL4sP4o=",
+  "Hash": "xmOo0Qe2QtrCKjlXbI0JaqVhMTIEhKW11qWFTe8dlYs=",
   "Source": "SistemaRecetas",
   "BasePath": "_content/SistemaRecetas",
   "Mode": "Default",
@@ -119,6 +119,23 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\SistemaRecetas\\wwwroot\\img\\cebolla.jpg",
+      "SourceId": "SistemaRecetas",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\SistemaRecetas\\wwwroot\\",
+      "BasePath": "_content/SistemaRecetas",
+      "RelativePath": "img/cebolla.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\cebolla.jpg"
+    },
+    {
       "Identity": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\SistemaRecetas\\wwwroot\\img\\Logo.png",
       "SourceId": "SistemaRecetas",
       "SourceType": "Discovered",
@@ -136,6 +153,23 @@
       "OriginalItemSpec": "wwwroot\\img\\Logo.png"
     },
     {
+      "Identity": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\SistemaRecetas\\wwwroot\\img\\receta.jpg",
+      "SourceId": "SistemaRecetas",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\SistemaRecetas\\wwwroot\\",
+      "BasePath": "_content/SistemaRecetas",
+      "RelativePath": "img/receta.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\receta.jpg"
+    },
+    {
       "Identity": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\SistemaRecetas\\wwwroot\\img\\Titulo.png",
       "SourceId": "SistemaRecetas",
       "SourceType": "Discovered",
@@ -151,6 +185,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\Titulo.png"
+    },
+    {
+      "Identity": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\SistemaRecetas\\wwwroot\\img\\verduras.jpg",
+      "SourceId": "SistemaRecetas",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\SistemaRecetas\\wwwroot\\",
+      "BasePath": "_content/SistemaRecetas",
+      "RelativePath": "img/verduras.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\verduras.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\SistemaRecetas\\wwwroot\\img\\zanahoria.jpg",
+      "SourceId": "SistemaRecetas",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\SistemaRecetas\\wwwroot\\",
+      "BasePath": "_content/SistemaRecetas",
+      "RelativePath": "img/zanahoria.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\zanahoria.jpg"
     },
     {
       "Identity": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\SistemaRecetas\\wwwroot\\js\\menu.js",

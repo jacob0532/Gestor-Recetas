@@ -29,6 +29,22 @@
       "PackagePath": "staticwebassets\\img\\Titulo.png"
     },
     {
+      "Id": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\SistemaRecetas\\wwwroot\\img\\cebolla.jpg",
+      "PackagePath": "staticwebassets\\img\\cebolla.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\SistemaRecetas\\wwwroot\\img\\receta.jpg",
+      "PackagePath": "staticwebassets\\img\\receta.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\SistemaRecetas\\wwwroot\\img\\verduras.jpg",
+      "PackagePath": "staticwebassets\\img\\verduras.jpg"
+    },
+    {
+      "Id": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\SistemaRecetas\\wwwroot\\img\\zanahoria.jpg",
+      "PackagePath": "staticwebassets\\img\\zanahoria.jpg"
+    },
+    {
       "Id": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\SistemaRecetas\\wwwroot\\js\\menu.js",
       "PackagePath": "staticwebassets\\js\\menu.js"
     },
