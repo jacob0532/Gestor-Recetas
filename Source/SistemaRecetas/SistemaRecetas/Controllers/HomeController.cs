@@ -171,6 +171,17 @@ namespace SistemaRecetas.Controllers
             return Json(result);
         }
 
+        // Receta especifica
+        public JsonResult verRecetaEspecifica(int idReceta)
+        {
+            clReceta receta = new clReceta();
+            receta = dbReceta.verRecetaEspecifica(conexionString, idReceta);
+            var result = JsonConvert.SerializeObject(receta);
+            return Json(result);
+        }
+
+
+
         // Listar Usuarios
         public JsonResult listarUsuarios()
         {

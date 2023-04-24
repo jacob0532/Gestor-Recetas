@@ -47,6 +47,36 @@ namespace CapaDatos.Receta
         }
 
 
+        public clReceta verRecetaEspecifica(SqlConnectionStringBuilder connString, int? InIdReceta)
+        {
+            clReceta receta = new clReceta();
+            string queryString = "EXEC dbo.sp_ConsultaRecetaEspecifica " +
+                "" + InIdReceta + ", " + 0 + "";
+
+            using (SqlConnection conexion = new SqlConnection(connString.ConnectionString))
+            {
+                using (var cmd = new SqlCommand(queryString, conexion))
+                {
+                    cmd.Connection = conexion;
+                    conexion.Open();
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            receta.id = reader.GetInt32(0);
+                            receta.nombre = reader.GetString(1);
+                            receta.descripcion = reader.GetString(2);
+                            receta.area = reader.GetString(3);
+                            receta.subarea = reader.GetString(4);
+                        }
+                    }
+                }
+            }
+            return receta;
+        }
+
+
         public int crearReceta(SqlConnectionStringBuilder connString, clReceta inReceta)
         {
             int resultCode = 0;

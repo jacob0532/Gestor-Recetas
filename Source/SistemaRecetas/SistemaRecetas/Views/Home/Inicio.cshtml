@@ -91,7 +91,7 @@
                                 "<td hidden>" + json[i].id + "</td>" +
                                 "<td>" + json[i].nombre + "</td>" +
                                 "<td>" + json[i].descripcion + "</td>" +
-                                "<td style='width: 5%'><button class='btn btnPrincipal'><i class='fa-solid fa-eye' title='VerReceta'></i></button></td>" +
+                                "<td style='width: 5%'><button class='btn btnPrincipal' onclick='abrirModal(" + json[i].id + ")'><i class='fa-solid fa-eye' title='VerReceta'></i></button></td>" +
                                 "<td><button class='btn btnPrincipal' ><i class='fa-solid fa-pen-to-square' title='Editar'></i></button></td>" +
                                 "<td><button class='btn btnPrincipal'><i class='fa-solid fa-delete-left' title='Eliminar'></i></button></td>" +
 
@@ -103,6 +103,52 @@
                         swal.fire({
                             icon: 'error',
                             html: '<h5>Error al cargar las recetas</h5>'
+                        });
+                    }
+                },
+                error: function () {
+                    swal.fire({
+                        icon: 'error',
+                        html: '<h5>Error al cargar las recetas</h5>'
+                    });
+                }
+            });
+        }
+        function abrirModal(id) {
+            window.alert("se ha abierto el modal" + id);
+            $.ajax({
+                type: 'POST',
+                url: Ruta + "/Home/verRecetaEspecifica/",
+                data: { idReceta: id},
+                success: function (data) {
+                    try {
+                        var json = JSON.parse(data);
+                        console.log(json);
+                        
+                        var modalHtml = '<div class="modal fade" id="mi-modal" tabindex="-1" aria-labelledby="mi-modal-label" aria-hidden="true">' +
+                            '<div class="modal-dialog">' +
+                            '<div class="modal-content">' +
+                            '<div class="modal-header">' +
+                            '<h5 class="modal-title" id="mi-modal-label">El nombre: '+ json.nombre + '-La descripcion: ' + json.descripcion + '</h5>' +
+                            '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+                            '</div>' +
+                            '<div class="modal-body">' +
+                            '<p>Contenido del modal aquí.</p>' +
+                            '</div>' +
+                            '<div class="modal-footer">' +
+                            '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>' +
+                            '<button type="button" class="btn btn-primary">Guardar</button>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+                        $(modalHtml).appendTo('body');
+                        $('#mi-modal').modal('show');
+                    }
+                    catch (error) {
+                        swal.fire({
+                            icon: 'error',
+                            html: '<h5>Error al cargar la receta</h5>'
                         });
                     }
                 },
