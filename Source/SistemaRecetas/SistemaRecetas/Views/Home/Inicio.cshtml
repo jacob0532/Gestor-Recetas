@@ -1,3 +1,4 @@
+
 ﻿@{
     ViewData["Title"] = "Gestión de Recetas";
 }
@@ -9,23 +10,25 @@
                 <h5>Área:</h5>
             </div>
             <div class="col-md-3">
-                <select id="nominas" required class="form-control">
-                    <option value="Gastronomia">Gastronomia</option>
-                </select>
+                    <select id="departamentos" required class="form-control">
+                        <option> Seleccione un área</option>
+                    </select>
+                
             </div>
 
             <div class="col-md-2">
                 <h5>Subarea:</h5>
             </div>
             <div class="col-md-3">
-                <select id="reporte" required class="form-control">
-                    <option value="Cocina">Cocina</option>
+                <select id="subdepartamentos" required class="form-control">
+                    
                 </select>
+                
             </div>
         </div>
 
         <hr />
-        
+
         <div class="row">
             <div class="ContenidoTablaRecetas">
                 <table id="TablaRecetas" class="table-hover table-responsive" style="width:100%">
@@ -43,8 +46,10 @@
             </div>
         </div>
     </div>
+
+  
     <script>
-        $(document).ready(function () {
+         $("#subdepartamentos,#departamentos").change(function () {
             cargarRecetas();
         });
 
@@ -74,24 +79,28 @@
 
 
 
-        function cargarRecetas() {
+        function cargarRecetas()
+        {
+            var idDepartamento = document.getElementById("departamentos").value;
+            var idSubDepartamento = document.getElementById("subdepartamentos").value;
             $.ajax({
                 type: 'POST',
-                url: Ruta + "/Home/listarRecetas/",
+                url: Ruta + "/Home/ObtenerRecetaPorDepartamentoySubDepartamento?idDepartamento=" + idDepartamento + "&idSubDepartamento=" + idSubDepartamento,
                 success: function (data) {
                     try {
                         var json = JSON.parse(data);
                         table.clear().draw();
 
-                        for (var i in json) {
-
+                        for (var i in json)
+                        {
+                            console.log(json);
                             table.row.add($("<tr>" +
-                                "<td hidden>" + json[i].id + "</td>" +
+                                "<td hidden>" + json[i].idReceta + "</td>" +
                                 "<td>" + json[i].nombre + "</td>" +
                                 "<td>" + json[i].descripcion + "</td>" +
                                 "<td style='width: 5%'><button class='btn btnPrincipal' onclick='abrirModal(" + json[i].id + ")'><i class='fa-solid fa-eye' title='VerReceta'></i></button></td>" +
-                                "<td><button class='btn btnPrincipal' ><i class='fa-solid fa-pen-to-square' title='Editar'></i></button></td>" +
-                                "<td><button class='btn btnPrincipal'><i class='fa-solid fa-delete-left' title='Eliminar'></i></button></td>" +
+                                "<td><a class='btn btnPrincipal' ><i class='fa-solid fa-pen-to-square' title='Editar'></i></a></td>" +
+                                "<td><a class='btn btnPrincipal' ><i class='fa-solid fa-delete-left' title='Eliminar'></i></a></td>" +
 
                                 "</tr > ")).draw(false);
 
@@ -231,6 +240,102 @@
             });
         }
     </script>
-</div>
 
+   
+    <script>
+    
+
+        $(document).ready(function () 
+        {
+            // Carga los departamentos en el primer select
+            $.getJSON("/Home/ObtenerDepartamentos", function (data)
+            {
+                var options = "";
+                $.each(data, function (key, departamento)
+                {
+                    options += "<option value='" + departamento.idDepartamento + "'>" + departamento.nombre + "</option>";
+                });
+                $("#departamentos").append(options);
+            });
+
+            // Agrega un evento change() al primer select para cargar los subdepartamentos
+            $("#departamentos").change(function () 
+            {
+                var idDepartamento = $(this).val(); // Obtiene el id del departamento seleccionado
+                let x=1;
+                if (idDepartamento)
+                { // Verifica que se haya seleccionado un departamento
+                    $.getJSON("/Home/ObtenerSubDepartamentosPorDepartamento?idDepartamento=" + idDepartamento, function (data) {
+                        var options = "";
+                        options += "<option> Seleccione una subárea</option>";
+                        $.each(data, function (key, subdepartamento)
+                        {
+                            options += "<option value='" + x + "'>" + subdepartamento.nombre + "</option>";
+                            x++;
+                        });
+                        $("#subdepartamentos").html(options); // Reemplaza las opciones del segundo select
+                    });
+                } else {
+                    $("#subdepartamentos").html(""); // Si no se seleccionó un departamento, vacía el segundo select
+                }
+            });
+        });
+
+    </script>
+    
+    <!--
+    <script>
+        $(document).ready(function ()
+        {
+            $("#subdepartamentos").change(function () {
+                var idDepartamento = document.getElementById("departamentos").value;
+                var idSubDepartamento = document.getElementById("subdepartamentos").value;
+                fetch("/Home/ObtenerRecetaPorDepartamentoySubDepartamento?idDepartamento=" + idDepartamento + "&idSubDepartamento=" + idSubDepartamento)
+                    .then(response => response.json())
+                    .then(data => {
+                        var cuerpoTabla = document.getElementById("cuerpoRecetas");
+                        cuerpoTabla.innerHTML = "";
+                        data.forEach(function (receta)
+                        {
+                            var fila = document.createElement("tr");
+                            var celdaId = document.createElement("td");
+                            celdaId.hidden = true;
+                            celdaId.innerHTML = receta.idReceta;
+                            fila.appendChild(celdaId);
+
+                            var celdaNombre = document.createElement("td");
+                            celdaNombre.innerHTML = receta.nombre;
+                            fila.appendChild(celdaNombre);
+
+                            var celdaDescripcion = document.createElement("td");
+                            celdaDescripcion.innerHTML = receta.descripcion;
+                            fila.appendChild(celdaDescripcion);
+
+                            var celdaEditar = document.createElement("td");
+                            var enlaceEditar = document.createElement("a");
+                            enlaceEditar.href = "/EditarReceta/" + receta.idReceta;
+                            enlaceEditar.innerHTML = "Editar";
+                            celdaEditar.appendChild(enlaceEditar);
+                            fila.appendChild(celdaEditar);
+
+                            var celdaEliminar = document.createElement("td");
+                            var enlaceEliminar = document.createElement("a");
+                            enlaceEliminar.href = "/EliminarReceta/" + receta.idReceta;
+                            enlaceEliminar.innerHTML = "Eliminar";
+                            celdaEliminar.appendChild(enlaceEliminar);
+                            fila.appendChild(celdaEliminar);
+                            cuerpoTabla.appendChild(fila);
+
+                            var editLink = $('<a>Editar</a>').attr('href', '#').addClass('btn btn-primary');
+                            var deleteLink = $('<a>Borrar</a>').attr('href', '#').addClass('btn btn-danger');
+
+                            // Agregar los enlaces a la última celda de la fila
+                            row.append($('<td></td>').append(editLink).append(' ').append(deleteLink));
+                        });
+                    });
+            });
+
+        });
+    </script>
+</div>
 
