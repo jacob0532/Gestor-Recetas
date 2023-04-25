@@ -8,7 +8,9 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using SistemaRecetas.Models;
+using System.Data;
 using System.Diagnostics;
+using System.IO;
 
 namespace SistemaRecetas.Controllers
 {
@@ -136,7 +138,7 @@ namespace SistemaRecetas.Controllers
 
 
         // Crear receta
-        public int crearReceta(string inNombre, int inArea, int inSubarea, string inDescripcion, string inMateriales, string inProcedimientos)
+        public int crearReceta(string inNombre, int inArea, int inSubarea, string inDescripcion, string inMateriales, string inProcedimientos, String inImagenes)
         {
             int resultCode = 0;
             clReceta receta = new clReceta();
@@ -146,6 +148,7 @@ namespace SistemaRecetas.Controllers
             receta.descripcion = inDescripcion;
             receta.ingredientes = inMateriales;
             receta.pasos = inProcedimientos;
+            receta.imagenes = inImagenes; 
 
             try
             {
@@ -155,7 +158,7 @@ namespace SistemaRecetas.Controllers
             }
             catch (Exception e)
             {
-
+                Console.WriteLine(e.ToString());
                 return 501;
             }
         }
@@ -167,7 +170,6 @@ namespace SistemaRecetas.Controllers
             List<clReceta> listaRecetas = new List<clReceta>();
             listaRecetas = dbReceta.listarRecetas(conexionString);
             var result = JsonConvert.SerializeObject(listaRecetas);
-
             return Json(result);
         }
 

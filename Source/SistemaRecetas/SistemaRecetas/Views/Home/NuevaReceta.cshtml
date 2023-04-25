@@ -57,14 +57,21 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-md-3">
+                <h5>Imagenes:</h5>
+            </div>
+            <div class="col-md-7">
+                <label class="form-label" for="customFile">Seleccionar imagen</label>
+                <input id="imagenes" type="file" class="form-control" accept="image/*" multiple />
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-8">
             </div>
             <div class="col-md-2">
                 <button class="btn btnPrincipal" onclick="guardarReceta();">Guardar</button>
             </div>
         </div>
-
-
         <hr />
 
 
@@ -73,8 +80,66 @@
 
     <script>
         $(document).ready(function () {
+            /*
+            // Obtener el input de tipo "file"
+            var inputImagenes = document.getElementById('imagenes');
 
+            // Obtener el elemento donde mostrar la imagen
+            //var contenedorImagen = document.getElementById('contenedor-imagen');
+
+            // Escuchar el evento "change" del input
+            inputImagenes.addEventListener('change', function () {
+                // Obtener la primera imagen seleccionada
+                var imagen = inputImagenes.files[0];
+
+                // Crear un objeto FileReader
+                var lector = new FileReader();
+
+                // Escuchar el evento "load" del FileReader
+                lector.addEventListener('load', function () {
+                    // Obtener la URL de datos Base 64 de la imagen
+                    var urlBase64 = lector.result;
+
+                    /*
+                    // Eliminar la imagen actual si existe
+                    var imagenActual = contenedorImagen.querySelector('img');
+                    if (imagenActual) {
+                        contenedorImagen.removeChild(imagenActual);
+                    }
+                    // Crear un elemento de imagen
+                    var img = document.createElement('img');
+
+                    // Establecer la URL de datos como atributo "src" de la imagen
+                    img.src = urlBase64;
+                    img.width = '500';
+                    img.height = '500';
+
+                    // Agregar la imagen al contenedor
+                    contenedorImagen.appendChild(img);*//*
+                });
+
+                // Leer la imagen como URL de datos Base 64
+                lector.readAsDataURL(imagen);
+            });*/
         });
+
+
+        //var imagenes;
+
+        function obtenerImagen() {
+            return new Promise(function (resolve, reject) {
+                var inputImagenes = document.getElementById('imagenes');
+                    var imagen = inputImagenes.files[0];
+                    var lector = new FileReader();
+                    lector.addEventListener('load', function () {
+                        console.log("error");
+                        imagenes = lector.result;
+                        console.log(imagenes);
+                        resolve(imagenes); // Resuelve la promesa con el valor de imagenes
+                    });
+                    lector.readAsDataURL(imagen);
+                });
+        }
 
         function guardarReceta() {
             var nombre = $('#nombre').val();
@@ -84,39 +149,48 @@
             var materiales = $('#materiales').val();
             var procedimientos = $('#procedimientos').val();
 
-            $.ajax({
-                type: 'POST',
-                url: Ruta + "/Home/crearReceta/",
-                data: {
-                    inNombre: nombre, inArea: area, inSubarea:subarea, inDescripcion:descripcion,
-                    inMateriales:materiales, inProcedimientos:procedimientos
-                },
-                success: function (result) {
-                    if (result == 0) {
-                        swal.fire({
-                            icon: 'success',
-                            html: '<h5>Datos Ingresados Correctamente</h5>',
-                            showConfirmButton: true
-                        });
-                        sleep(2000).then(() => {
-                            window.location.href = "@Url.Action("Inicio", "Home")";
-                        });
-                    } else {
+            // Espera a que la promesa se resuelva para obtener el valor de imagenes
+            obtenerImagen().then(function (imagenes) {
+                //console.log("------------> " + imagenes);
+                $.ajax({
+                    type: 'POST',
+                    url: Ruta + "/Home/crearReceta/",
+                    data: {
+                        inNombre: nombre,
+                        inArea: area,
+                        inSubarea: subarea,
+                        inDescripcion: descripcion,
+                        inMateriales: materiales,
+                        inProcedimientos: procedimientos,
+                        inImagenes: imagenes // Usa el valor de imagenes obtenido de la promesa
+                    },
+                    success: function (result) {
+                        if (result == 0) {
+                            swal.fire({
+                                icon: 'success',
+                                html: '<h5>Datos Ingresados Correctamente</h5>',
+                                showConfirmButton: true
+                            });
+                            sleep(2000).then(() => {
+                                window.location.href = "@Url.Action("Inicio", "Home")";
+                            });
+                        } else {
+                            swal.fire({
+                                icon: 'error',
+                                html: '<h5>No se guardaron los cambios correctamente</h5>'
+                            });
+                        }
+                    },
+                    error: function () {
                         swal.fire({
                             icon: 'error',
-                            html: '<h5>No se guardaron los cambios correctamente</h5>'
+                            html: '<h5>No se guardaron los cambios realizados</h5>'
                         });
                     }
-
-                },
-                error: function () {
-                    swal.fire({
-                        icon: 'error',
-                        html: '<h5>No se guardaron los cambios realizados</h5>'
-                    });
-                }
+                });
             });
         }
+
 
     </script>
 </div>
