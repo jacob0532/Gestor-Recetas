@@ -1,3 +1,4 @@
+
 ﻿@{
     ViewData["Title"] = "Gestión de Recetas";
 }
@@ -97,7 +98,7 @@
                                 "<td hidden>" + json[i].idReceta + "</td>" +
                                 "<td>" + json[i].nombre + "</td>" +
                                 "<td>" + json[i].descripcion + "</td>" +
-
+                                "<td style='width: 5%'><button class='btn btnPrincipal' onclick='abrirModal(" + json[i].id + ")'><i class='fa-solid fa-eye' title='VerReceta'></i></button></td>" +
                                 "<td><a class='btn btnPrincipal' ><i class='fa-solid fa-pen-to-square' title='Editar'></i></a></td>" +
                                 "<td><a class='btn btnPrincipal' ><i class='fa-solid fa-delete-left' title='Eliminar'></i></a></td>" +
 
@@ -109,6 +110,124 @@
                         swal.fire({
                             icon: 'error',
                             html: '<h5>Error al cargar las recetas</h5>'
+                        });
+                    }
+                },
+                error: function () {
+                    swal.fire({
+                        icon: 'error',
+                        html: '<h5>Error al cargar las recetas</h5>'
+                    });
+                }
+            });
+        }
+        function abrirModal(id) {
+            //window.alert("se ha abierto el modal" + id);
+            $.ajax({
+                type: 'POST',
+                url: Ruta + "/Home/verRecetaEspecifica/",
+                data: { idReceta: id},
+                success: function (data) {
+                    try {
+                        var json = JSON.parse(data);
+                        console.log(json);
+
+                        /*
+                        var ingredientes = json.ingredientes.split("-");
+                        var pasos = json.pasos.split("-");
+                        for (let i = 0; i < ingredientes.length; i++) {
+                            console.log(ingredientes[i]);
+                        }
+                        for (let i = 0; i < pasos.length; i++) {
+                            console.log(pasos[i]);
+                        }*/
+
+                        var ingredientes = json.ingredientes.split("-");
+                        var listaIngredientes = "";
+                        var listaPasos = "";
+                        for (let i = 0; i < ingredientes.length-1; i++) {
+                            listaIngredientes += '<li class="list-group-item fw-bold border-0" style="background-color: transparent;color:#fff;">' + ingredientes[i] + '</li>'
+                        }
+                        var pasos = json.pasos.split("-");
+                        for (let i = 0; i < pasos.length-1; i++) {
+                            listaPasos += '<li class="list-group-item fw-bold border-0" style="background-color: transparent;color:#fff;">' + pasos[i] + '</li>'
+                        }
+
+                        var modalHtml = '<div class="modal fade" id="mi-modal" tabindex="-1" aria-labelledby="mi-modal-label" aria-hidden="true">' +
+                            '<div class="modal-dialog modal-xl">' +
+                            '<div class="modal-content" style="background-color: #2599BD;">' +
+                            '<div class="modal-header">' +
+                            '<h2 class="modal-title fw-bold" id="mi-modal-label" style="color:#f4f4f4;"><img src="/img/Logo.png" width="50" height="50" style="padding: 5px;">Centro Integral Las Nubes</h2>' +
+                            '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+                            '</div>' +
+                            '<div class="modal-body">' +
+                            '<div class="container-fluid" >' + 
+                            '<div class="row">' + 
+                            //titulo y descripción
+                            '<div class="col-4" style="text-align: center;padding: 5px;">' +
+                            '<h3 class="fw-bold" style="text-align: center;color:#f4f4f4;">' + json.nombre + '</h3>' +
+                            '<p class="fw-bold" style="text-align: center;color:#f4f4f4;">' + json.descripcion + '</p>' +
+                            '</div>' +
+                            //carrusel
+                            '<div class="col-8" style="text-align: center;padding: 5px;">' +
+                            '<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">' +
+                            '<div class="carousel-inner">' +
+                            '<div class="carousel-item active">' +
+                            '<img src="' + json.imagenes + '" class="d-block w-100" style="width: 300px; height: 300px;">' +
+                            '</div>' +
+                            '<div class="carousel-item">' +
+                            '<img src="' + json.imagenes + '" class="d-block w-100" style="width: 300px; height: 300px;">' +
+                            '</div>' +
+                            '<div class="carousel-item">' +
+                            '<img src="' + json.imagenes + '" class="d-block w-100" style="width: 300px; height: 300px;">' +
+                            '</div>' +
+                            '</div>' +
+                            '<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">' +
+                            '<span class="carousel-control-prev-icon" aria-hidden="true"></span>' +
+                            '<span class="visually-hidden">Anterior</span>' +
+                            '</button>' +
+                            '<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">' +
+                            '<span class="carousel-control-next-icon" aria-hidden="true"></span>' +
+                            '<span class="visually-hidden">Siguiente</span>' +
+                            '</button>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="row">' +
+                            //Lista de ingredientes
+                            '<div class="col-4" style="text-align: center;padding: 5px;">' +
+                            '<h3 class="fw-bold" style="text-align: center;color:#f4f4f4;">Ingredientes</h3>' +
+                            '<ul class="list-group list-group-numbered" style="text-align: center;">' +
+                            listaIngredientes + 
+                            '</ul>' +
+                            '</div>'+
+                            //Lista de procedimientos
+                            '<div class="col-8" style="text-align: center;padding: 5px;">' +
+                            '<h3 class="fw-bold" style="text-align: center;color:#f4f4f4;">Instrucciones</h3>' +
+                            '<ul class="list-group list-group-numbered" style="text-align: center;">' +
+                            listaPasos + 
+                            '</ul>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+                        
+                        $(modalHtml).appendTo('body');
+                        $('#mi-modal').modal('show');
+                        $('#mi-modal').on('shown.bs.modal', function () {
+                            console.log("3" + json.nombre);
+                            $('.carousel').carousel();
+                        });
+                        $('#mi-modal').on('hidden.bs.modal', function () {
+                            $(this).remove();
+                            modalHtml = null; // Aquí deberás establecer la variable que contiene la referencia al modal como null
+                        });
+                    }
+                    catch (error) {
+                        swal.fire({
+                            icon: 'error',
+                            html: '<h5>Error al cargar la receta</h5>'
                         });
                     }
                 },
@@ -218,9 +337,5 @@
 
         });
     </script>
-
-    -->
-
-
 </div>
 

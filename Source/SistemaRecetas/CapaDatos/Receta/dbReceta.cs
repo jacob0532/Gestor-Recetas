@@ -47,6 +47,91 @@ namespace CapaDatos.Receta
         }
 
 
+        public clReceta verRecetaEspecifica(SqlConnectionStringBuilder connString, int? InIdReceta)
+        {
+            clReceta receta = new clReceta();
+            string queryString = "EXEC dbo.sp_ConsultaRecetaEspecifica " +
+                "" + InIdReceta + ", " + 0 + "";
+
+            using (SqlConnection conexion = new SqlConnection(connString.ConnectionString))
+            {
+                using (var cmd = new SqlCommand(queryString, conexion))
+                {
+                    cmd.Connection = conexion;
+                    conexion.Open();
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            receta.id = reader.GetInt32(0);
+                            receta.nombre = reader.GetString(1);
+                            receta.descripcion = reader.GetString(2);
+                            receta.area = reader.GetString(3);
+                            receta.subarea = reader.GetString(4);
+                            if (!reader.IsDBNull(5)) {
+                                receta.imagenes = reader.GetString(5);
+                            }
+                            receta.ingredientes = verIngredientesXReceta(connString, InIdReceta);
+                            receta.pasos = verPasosXReceta(connString, InIdReceta);
+                        }
+                    }
+                }
+            }
+            return receta;
+        }
+
+        public String verIngredientesXReceta(SqlConnectionStringBuilder connString, int? InIdReceta)
+        {
+            String ingredientes = "";
+            string queryString = "EXEC dbo.sp_ConsultaIngredientesxReceta " +
+                "" + InIdReceta + ", " + 0 + "";
+
+            using (SqlConnection conexion = new SqlConnection(connString.ConnectionString))
+            {
+                using (var cmd = new SqlCommand(queryString, conexion))
+                {
+                    cmd.Connection = conexion;
+                    conexion.Open();
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ingredientes += reader.GetString(1) + "-";
+                        }
+                    }
+                }
+            }
+            return ingredientes;
+        }
+
+        public String verPasosXReceta(SqlConnectionStringBuilder connString, int? InIdReceta)
+        {
+            String pasos = "";
+            string queryString = "EXEC dbo.sp_ConsultaPasoxReceta " +
+                "" + InIdReceta + ", " + 0 + "";
+
+            using (SqlConnection conexion = new SqlConnection(connString.ConnectionString))
+            {
+                using (var cmd = new SqlCommand(queryString, conexion))
+                {
+                    cmd.Connection = conexion;
+                    conexion.Open();
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            pasos += reader.GetString(1) + "-";
+                        }
+                    }
+                }
+            }
+            return pasos;
+        }
+
+
         public int crearReceta(SqlConnectionStringBuilder connString, clReceta inReceta)
         {
             int resultCode = 0;
@@ -56,7 +141,7 @@ namespace CapaDatos.Receta
                 "" + inReceta.idArea + ", " +
                 "" + inReceta.idSubArea + ", " +
                 "'" + inReceta.descripcion + "', " +
-                "NULL, " +
+                "'" + inReceta.imagenes + "', " +
                 "'" + inReceta.pasos + "', " +
                 "'" + inReceta.ingredientes + "', " +
                 "" + 0 + "";

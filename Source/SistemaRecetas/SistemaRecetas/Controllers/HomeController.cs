@@ -8,7 +8,9 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using SistemaRecetas.Models;
+using System.Data;
 using System.Diagnostics;
+using System.IO;
 
 namespace SistemaRecetas.Controllers
 {
@@ -26,20 +28,23 @@ namespace SistemaRecetas.Controllers
         {
             _logger = logger;
 
-            string servidor = "LAPTOP-IHP166E9\\SQLEXPRESS01";
+
+            /*string servidor = "LAPTOP-IHP166E9\\SQLEXPRESS01";
             string baseDatos = "GestorRecetas";
             string usuario = "daniel";
-            string clave = "daniel";
-
+            string clave = "daniel";*/
+            //conexionString = dbConexion.obtenerConexión(servidor, baseDatos, usuario, clave);
+            
             /*
             string servidor = "LAPTOP-B647LCTK\\SQLEXPRESS";
             string baseDatos = "Prueba";
             string usuario = "sa";
             string clave = "sa1234"; 
             */
-
-
-            conexionString = dbConexion.obtenerConexión(servidor, baseDatos, usuario, clave);
+            
+            string servidor = "LAPTOP-140FDP4P\\JACOBBD";
+            string baseDatos = "GestorRecetas";
+            conexionString = dbConexion.obtenerConexion2(servidor, baseDatos);
         }
 
         public List<Departamento> ObtenerDepartamentos()
@@ -253,7 +258,7 @@ namespace SistemaRecetas.Controllers
 
 
         // Crear receta
-        public int crearReceta(string inNombre, int inArea, int inSubarea, string inDescripcion, string inMateriales, string inProcedimientos)
+        public int crearReceta(string inNombre, int inArea, int inSubarea, string inDescripcion, string inMateriales, string inProcedimientos, String inImagenes)
         {
             int resultCode = 0;
             clReceta receta = new clReceta();
@@ -263,6 +268,7 @@ namespace SistemaRecetas.Controllers
             receta.descripcion = inDescripcion;
             receta.ingredientes = inMateriales;
             receta.pasos = inProcedimientos;
+            receta.imagenes = inImagenes; 
 
             try
             {
@@ -272,7 +278,7 @@ namespace SistemaRecetas.Controllers
             }
             catch (Exception e)
             {
-
+                Console.WriteLine(e.ToString());
                 return 501;
             }
         }
@@ -284,9 +290,19 @@ namespace SistemaRecetas.Controllers
             List<clReceta> listaRecetas = new List<clReceta>();
             listaRecetas = dbReceta.listarRecetas(conexionString);
             var result = JsonConvert.SerializeObject(listaRecetas);
-
             return Json(result);
         }
+
+        // Receta especifica
+        public JsonResult verRecetaEspecifica(int idReceta)
+        {
+            clReceta receta = new clReceta();
+            receta = dbReceta.verRecetaEspecifica(conexionString, idReceta);
+            var result = JsonConvert.SerializeObject(receta);
+            return Json(result);
+        }
+
+
 
         // Listar Usuarios
         public JsonResult listarUsuarios()

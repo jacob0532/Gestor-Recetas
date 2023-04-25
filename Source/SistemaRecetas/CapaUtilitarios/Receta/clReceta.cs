@@ -8,6 +8,7 @@ namespace CapaUtilitarios.Receta
 {
     public class clReceta
     {
+        
         public int id { get; set; }
         public int idArea { get; set; }
         public string area { get; set; }
@@ -17,5 +18,11 @@ namespace CapaUtilitarios.Receta
         public string descripcion { get; set; }
         public string pasos { get; set; }
         public string ingredientes { get; set; }
+        public string imagenes { get; set; }
+
+        public override string ToString()
+        {
+            return $"id: {id}, idArea: {idArea}, area: {area}, idSubArea: {idSubArea}, subarea: {subarea}, nombre: {nombre}, descripcion: {descripcion}, pasos: {pasos}, ingredientes: {ingredientes}, imagenes: {imagenes}";
+        }
     }
 }
