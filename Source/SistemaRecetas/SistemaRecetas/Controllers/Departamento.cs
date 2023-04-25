@@ -8,7 +8,7 @@
 
     internal class subDepartamento
     {
-        public int IDsubDepartamento { get; set; }
+        public int IdSubdepartamento { get; set; }
         public string Nombre { get; set; }
         public int IdDepartamento { get; set; }
     }
