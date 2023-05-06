@@ -9,12 +9,8 @@
                 <h5>Área:</h5>
             </div>
             <div class="col-md-3">
-                <select id="reporte" required class="form-control">
-                    <option value="">-- Seleccione un departamento --</option>
-                    @foreach (var departamento in Model)
-                    {
-                        <option value="@departamento.IdDepartamento">@departamento.Nombre</option>
-                    }
+                <select id="nominas" required class="form-control">
+                    <option value="Gastronomia">Gastronomia</option>
                 </select>
             </div>
 
@@ -23,9 +19,7 @@
             </div>
             <div class="col-md-3">
                 <select id="reporte" required class="form-control">
-                </select>
-                <select id="reporte" required class="form-control">
-                    <option value="">-- Seleccione un subdepartamento --</option>
+                    <option value="Cocina">Cocina</option>
                 </select>
             </div>
         </div>
@@ -121,52 +115,4 @@
             });
         }
     </script>
-
-    <script>
-        $(document).ready(function () {
-            $.getJSON("/Home/ObtenerDepartamentos", function (data) {
-                var options = "";
-                $.each(data, function (key, departamento) {
-                    options += "<option value='" + departamento.idDepartamento + "'>" + departamento.nombre + "</option>";
-                });
-                $("#nominas").append(options);
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $.getJSON("/Home/ObtenerSubDepartamentos", function (data) {
-                var options = "";
-                $.each(data, function (key, subdepartamento) {
-                    options += "<option value='" + subdepartamento.idDepartamento + "'>" + subdepartamento.nombre + "</option>";
-                });
-                $("#reporte").append(options);
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $("#nominas").change(function () {
-                var departamentoId = $(this).val();
-                if (departamentoId != "") {
-                    $.getJSON("/Home/ObtenerSubDepartamentosPorDepartamento?departamentoId=" + departamentoId, function (data) {
-                        var options = "";
-                        $.each(data, function (key, subdepartamento) {
-                            options += "<option value='" + subdepartamento.IDsubDepartamento + "'>" + subdepartamento.Nombre + "</option>";
-                        });
-                        $("#nominas").html(options);
-                    });
-                }
-                else {
-                    $("#nominas").html("<option value=''>-- Seleccione un subdepartamento --</option>");
-                }
-            });
-        });
-    </script>
-
-
-
-
 </div>
