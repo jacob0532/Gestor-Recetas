@@ -57,7 +57,10 @@
         color: #FFFFFF;
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 5bfb8f6 (Revert "Crear y listar recetas y usuarios")
 .btnSuccess {
     border: 1px solid rgb(135, 191, 24);
     outline: none;
@@ -90,6 +93,7 @@
 .row {
     margin-bottom: 1%;
 }
+<<<<<<< HEAD
 
 .modal-with-bg {
     background-image: url('/img/receta.jpg');
@@ -100,3 +104,5 @@
     max-width: 1200px; /* o cualquier otro valor que desees */
 }
 
+=======
+>>>>>>> parent of 5bfb8f6 (Revert "Crear y listar recetas y usuarios")

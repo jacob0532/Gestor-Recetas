@@ -21,6 +21,7 @@ namespace CapaDatos.Conexion
 
             return conn;
         }
+<<<<<<< HEAD
         public SqlConnectionStringBuilder obtenerConexion2(string inServer, string inDatabase)
         {
             SqlConnectionStringBuilder conn = new SqlConnectionStringBuilder();
@@ -31,5 +32,7 @@ namespace CapaDatos.Conexion
 
             return conn;
         }
+=======
+>>>>>>> parent of 5bfb8f6 (Revert "Crear y listar recetas y usuarios")
     }
 }

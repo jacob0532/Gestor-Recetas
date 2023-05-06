@@ -47,6 +47,7 @@ namespace CapaDatos.Receta
         }
 
 
+<<<<<<< HEAD
         public clReceta verRecetaEspecifica(SqlConnectionStringBuilder connString, int? InIdReceta)
         {
             clReceta receta = new clReceta();
@@ -132,6 +133,8 @@ namespace CapaDatos.Receta
         }
 
 
+=======
+>>>>>>> parent of 5bfb8f6 (Revert "Crear y listar recetas y usuarios")
         public int crearReceta(SqlConnectionStringBuilder connString, clReceta inReceta)
         {
             int resultCode = 0;
@@ -141,7 +144,11 @@ namespace CapaDatos.Receta
                 "" + inReceta.idArea + ", " +
                 "" + inReceta.idSubArea + ", " +
                 "'" + inReceta.descripcion + "', " +
+<<<<<<< HEAD
                 "'" + inReceta.imagenes + "', " +
+=======
+                "NULL, " +
+>>>>>>> parent of 5bfb8f6 (Revert "Crear y listar recetas y usuarios")
                 "'" + inReceta.pasos + "', " +
                 "'" + inReceta.ingredientes + "', " +
                 "" + 0 + "";
