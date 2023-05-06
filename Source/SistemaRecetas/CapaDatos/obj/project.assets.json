@@ -2019,19 +2019,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\rolbi\\.nuget\\packages\\": {}
+    "C:\\Users\\yeico\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\rolbi\\OneDrive\\Escritorio\\TEC\\Computación y Sociedad\\Proyecto\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaDatos\\CapaDatos.csproj",
+      "projectUniqueName": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaDatos\\CapaDatos.csproj",
       "projectName": "CapaDatos",
-      "projectPath": "C:\\Users\\rolbi\\OneDrive\\Escritorio\\TEC\\Computación y Sociedad\\Proyecto\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaDatos\\CapaDatos.csproj",
-      "packagesPath": "C:\\Users\\rolbi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rolbi\\OneDrive\\Escritorio\\TEC\\Computación y Sociedad\\Proyecto\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaDatos\\obj\\",
+      "projectPath": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaDatos\\CapaDatos.csproj",
+      "packagesPath": "C:\\Users\\yeico\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaDatos\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\rolbi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\yeico\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2045,8 +2045,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\rolbi\\OneDrive\\Escritorio\\TEC\\Computación y Sociedad\\Proyecto\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaUtilitarios\\CapaUtilitarios.csproj": {
-              "projectPath": "C:\\Users\\rolbi\\OneDrive\\Escritorio\\TEC\\Computación y Sociedad\\Proyecto\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaUtilitarios\\CapaUtilitarios.csproj"
+            "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaUtilitarios\\CapaUtilitarios.csproj": {
+              "projectPath": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaUtilitarios\\CapaUtilitarios.csproj"
             }
           }
         }
@@ -2082,7 +2082,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
