@@ -8,19 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\yeico\\.nuget\\packages\\": {}
+    "C:\\Users\\rolbi\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\GestorRecetas\\GestorRecetas\\GestorRecetas.csproj",
+      "projectUniqueName": "C:\\Users\\rolbi\\OneDrive\\Escritorio\\TEC\\Computación y Sociedad\\Proyecto\\Gestor-Recetas\\Source\\GestorRecetas\\GestorRecetas\\GestorRecetas.csproj",
       "projectName": "GestorRecetas",
-      "projectPath": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\GestorRecetas\\GestorRecetas\\GestorRecetas.csproj",
-      "packagesPath": "C:\\Users\\yeico\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\GestorRecetas\\GestorRecetas\\obj\\",
+      "projectPath": "C:\\Users\\rolbi\\OneDrive\\Escritorio\\TEC\\Computación y Sociedad\\Proyecto\\Gestor-Recetas\\Source\\GestorRecetas\\GestorRecetas\\GestorRecetas.csproj",
+      "packagesPath": "C:\\Users\\rolbi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\rolbi\\OneDrive\\Escritorio\\TEC\\Computación y Sociedad\\Proyecto\\Gestor-Recetas\\Source\\GestorRecetas\\GestorRecetas\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\yeico\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\rolbi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -64,7 +64,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

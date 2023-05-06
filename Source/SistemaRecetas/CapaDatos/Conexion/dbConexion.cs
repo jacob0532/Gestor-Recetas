@@ -21,15 +21,5 @@ namespace CapaDatos.Conexion
 
             return conn;
         }
-        public SqlConnectionStringBuilder obtenerConexion2(string inServer, string inDatabase)
-        {
-            SqlConnectionStringBuilder conn = new SqlConnectionStringBuilder();
-            conn.DataSource = inServer;
-            conn.InitialCatalog = inDatabase;
-            conn.TrustServerCertificate = true;
-            conn.IntegratedSecurity = true;
-
-            return conn;
-        }
     }
 }

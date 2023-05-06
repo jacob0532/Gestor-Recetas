@@ -26,23 +26,12 @@ namespace SistemaRecetas.Controllers
         {
             _logger = logger;
 
-            //Datos de conexión Rolbin 
-            /*string servidor = "LAPTOP-B647LCTK\\SQLEXPRESS";
+            string servidor = "LAPTOP-B647LCTK\\SQLEXPRESS";
             string baseDatos = "Prueba";
             string usuario = "sa";
-            string clave = "sa1234";*/
+            string clave = "sa1234";
 
-            //Datos de conexión Jacob
-            string servidor = "LAPTOP-140FDP4P\\JACOBBD";
-            string baseDatos = "GestorRecetas";
-            //"Data Source=LAPTOP-140FDP4P;Initial Catalog=ProyectoBD1;Integrated Security=true;";
-
-
-            //conexionString = dbConexion.obtenerConexión(servidor, baseDatos, usuario, clave);
-            conexionString = dbConexion.obtenerConexion2(servidor, baseDatos);
-
-
-
+            conexionString = dbConexion.obtenerConexión(servidor, baseDatos, usuario, clave);
         }
 
         public IActionResult Index()
