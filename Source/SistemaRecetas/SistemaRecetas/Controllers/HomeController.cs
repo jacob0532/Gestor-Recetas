@@ -28,23 +28,28 @@ namespace SistemaRecetas.Controllers
         {
             _logger = logger;
 
-
             /*string servidor = "LAPTOP-IHP166E9\\SQLEXPRESS01";
             string baseDatos = "GestorRecetas";
             string usuario = "daniel";
             string clave = "daniel";*/
             //conexionString = dbConexion.obtenerConexión(servidor, baseDatos, usuario, clave);
-            
+
             /*
             string servidor = "LAPTOP-B647LCTK\\SQLEXPRESS";
             string baseDatos = "Prueba";
             string usuario = "sa";
             string clave = "sa1234"; 
             */
-            
-            string servidor = "LAPTOP-140FDP4P\\JACOBBD";
-            string baseDatos = "GestorRecetas";
-            conexionString = dbConexion.obtenerConexion2(servidor, baseDatos);
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            var configuration = builder.Build();
+            var servidor = configuration["Servidor"];
+            var baseDatos = configuration["BaseDatos"];
+            var usr = configuration["Usuario"];
+            var pass = configuration["Clave"];
+            conexionString = dbConexion.obtenerConexión(servidor, baseDatos, usr, pass);
         }
 
         public List<Departamento> ObtenerDepartamentos()

@@ -2082,37 +2082,35 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\yeico\\.nuget\\packages\\": {}
+    "/Users/adrianvargas/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\SistemaRecetas\\SistemaRecetas.csproj",
+      "projectUniqueName": "/Users/adrianvargas/Projects/Gestor-Recetas/Source/SistemaRecetas/SistemaRecetas/SistemaRecetas.csproj",
       "projectName": "SistemaRecetas",
-      "projectPath": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\SistemaRecetas\\SistemaRecetas.csproj",
-      "packagesPath": "C:\\Users\\yeico\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\SistemaRecetas\\obj\\",
+      "projectPath": "/Users/adrianvargas/Projects/Gestor-Recetas/Source/SistemaRecetas/SistemaRecetas/SistemaRecetas.csproj",
+      "packagesPath": "/Users/adrianvargas/.nuget/packages/",
+      "outputPath": "/Users/adrianvargas/Projects/Gestor-Recetas/Source/SistemaRecetas/SistemaRecetas/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\yeico\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/adrianvargas/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaDatos\\CapaDatos.csproj": {
-              "projectPath": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaDatos\\CapaDatos.csproj"
+            "/Users/adrianvargas/Projects/Gestor-Recetas/Source/SistemaRecetas/CapaDatos/CapaDatos.csproj": {
+              "projectPath": "/Users/adrianvargas/Projects/Gestor-Recetas/Source/SistemaRecetas/CapaDatos/CapaDatos.csproj"
             },
-            "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaUtilitarios\\CapaUtilitarios.csproj": {
-              "projectPath": "C:\\Users\\yeico\\Desktop\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaUtilitarios\\CapaUtilitarios.csproj"
+            "/Users/adrianvargas/Projects/Gestor-Recetas/Source/SistemaRecetas/CapaUtilitarios/CapaUtilitarios.csproj": {
+              "projectPath": "/Users/adrianvargas/Projects/Gestor-Recetas/Source/SistemaRecetas/CapaUtilitarios/CapaUtilitarios.csproj"
             }
           }
         }
@@ -2151,7 +2149,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.203/RuntimeIdentifierGraph.json"
       }
     }
   }
