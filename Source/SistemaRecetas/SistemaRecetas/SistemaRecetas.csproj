@@ -15,4 +15,12 @@
     <ProjectReference Include="..\CapaUtilitarios\CapaUtilitarios.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="Views\Home\EditarUsuario.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Views\Home\EditarUsuario.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

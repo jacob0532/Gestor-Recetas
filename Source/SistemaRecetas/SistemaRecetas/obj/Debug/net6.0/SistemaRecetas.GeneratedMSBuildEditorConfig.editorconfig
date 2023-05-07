@@ -16,6 +16,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /Users/adrianvargas/Projects/Gestor-Recetas/Source/SistemaRecetas/SistemaRecetas
 build_property._RazorSourceGeneratorDebug = 
 
+[/Users/adrianvargas/Projects/Gestor-Recetas/Source/SistemaRecetas/SistemaRecetas/Views/Home/EditarUsuario.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9FZGl0YXJVc3VhcmlvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/adrianvargas/Projects/Gestor-Recetas/Source/SistemaRecetas/SistemaRecetas/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

@@ -82,7 +82,6 @@
         {
             var idDepartamento = document.getElementById("departamentos").value;
             var idSubDepartamento = document.getElementById("subdepartamentos").value;
-            console.log(idSubDepartamento);
             $.ajax({
                 type: 'POST',
                 url: Ruta + "/Home/ObtenerRecetaPorDepartamentoySubDepartamento?idDepartamento=" + idDepartamento + "&idSubDepartamento=" + idSubDepartamento,

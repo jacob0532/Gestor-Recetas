@@ -1,0 +1,120 @@
+﻿@{
+    ViewData["Title"] = "Editar Usuario";
+}
+
+<div class="">
+    <div class="">
+        <div class="row">
+            <input hidden id="idUsuario" value="@ViewBag.Id"/>
+            <div class="col-md-3">
+                <h5>Nombre:</h5>
+            </div>
+            <div class="col-md-5">
+                <input type="text" id="nombre" class="form-control" value="@ViewBag.Nombre"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Correo:</h5>
+            </div>
+            <div class="col-md-5">
+                <input type="text" id="correo" class="form-control" value="@ViewBag.Correo"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Telefono:</h5>
+            </div>
+            <div class="col-md-5">
+                <input type="number" id="telefono" class="form-control" value="@ViewBag.Telefono"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Tipo:</h5>
+            </div>
+            <div class="col-md-5">
+                <select id="tipo" required class="form-control">
+                    <option value="1">Administrador</option>
+                    <option value="0">Visualizador</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Usuario:</h5>
+            </div>
+            <div class="col-md-5">
+                <input type="text" id="usuario" class="form-control" value="@ViewBag.Usuario"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Contraseña:</h5>
+            </div>
+            <div class="col-md-5">
+                <input type="text" id="contrasena" class="form-control" value="@ViewBag.Contrasena"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+            </div>
+            <div class="col-md-2">
+                <button class="btn btnPrincipal" onclick="guardarUsuario();">Guardar</button>
+            </div>
+        </div>
+
+
+        <hr />
+
+
+    </div>
+
+
+    <script>$(document).ready(function () {
+
+        });
+
+        function guardarUsuario() {
+            var idUsuario = $('#idUsuario').val();
+            var nombre = $('#nombre').val();
+            var correo = $('#correo').val();
+            var telefono = $('#telefono').val();
+            var administrador = $('#tipo').val();
+            var usuario = $('#usuario').val();
+            var contrasena = $('#contrasena').val();
+
+            $.ajax({
+                type: 'POST',
+                url: Ruta + "/Home/actualizarInformaciónUsuario/",
+                data: {
+                    idUsuario: idUsuario, nombre: nombre, correo: correo, usuario: usuario, contrasena: contrasena, telefono: telefono, isAdmin: administrador
+                },
+                success: function (result) {
+                    if (result == 0) {
+                        swal.fire({
+                            icon: 'success',
+                            html: '<h5>Cambios realizados correctamente</h5>',
+                            showConfirmButton: true
+                        });
+                        sleep(2000).then(() => {
+                            window.location.href = "@Url.Action("Usuarios", "Home")";
+                        });
+                    } else {
+                        swal.fire({
+                            icon: 'error',
+                            html: '<h5>No se guardaron los cambios correctamente</h5>'
+                        });
+                    }
+                    window.location.href = '/Home/Usuarios';
+
+                },
+                error: function () {
+                    swal.fire({
+                        icon: 'error',
+                        html: '<h5>No se guardaron los cambios realizados</h5>'
+                    });
+                }
+            });
+        }</script>
+</div>

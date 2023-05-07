@@ -229,3 +229,4 @@ C:/Users/yeico/Desktop/Gestor-Recetas/Source/SistemaRecetas/SistemaRecetas/obj/D
 /Users/adrianvargas/Projects/Gestor-Recetas/Source/SistemaRecetas/SistemaRecetas/obj/Debug/net6.0/SistemaRecetas.pdb
 /Users/adrianvargas/Projects/Gestor-Recetas/Source/SistemaRecetas/SistemaRecetas/obj/Debug/net6.0/SistemaRecetas.genruntimeconfig.cache
 /Users/adrianvargas/Projects/Gestor-Recetas/Source/SistemaRecetas/SistemaRecetas/obj/Debug/net6.0/ref/SistemaRecetas.dll
+/Users/adrianvargas/Projects/Gestor-Recetas/Source/SistemaRecetas/SistemaRecetas/bin/Debug/net6.0/Views/Home/EditarUsuario.cshtml

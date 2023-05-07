@@ -1,3 +1,4 @@
+using Azure;
 using CapaDatos.Conexion;
 using CapaDatos.Receta;
 using CapaDatos.Usuario;
@@ -160,6 +161,67 @@ namespace SistemaRecetas.Controllers
             return Json(result);
         }
 
+        public void eliminarUsuario(int idUsuario)
+        {
+            string query = "DELETE FROM usuario WHERE idUsuario = @idUsuario";
+            using (SqlConnection connection = new SqlConnection(conexionString.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@idUsuario", idUsuario);
+                    connection.Open();
+                    command.ExecuteReader();
+                }
+            }
+        }
+
+        public clUsuario obtenerInformacionUsuario(int idUsuario)
+        {
+            clUsuario usuario = new clUsuario();
+            string query = "select * from usuario where idUsuario = @idUsuario";
+            using (SqlConnection connection = new SqlConnection(conexionString.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@idUsuario", idUsuario);
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            usuario.id = idUsuario;
+                            usuario.nombre = Convert.ToString(reader["nombre"]);
+                            usuario.correo = Convert.ToString(reader["correo"]);
+                            usuario.telefono = Convert.ToInt32(reader["telefono"]);
+                            usuario.usuario = Convert.ToString(reader["usuario"]);
+                            usuario.contrasena = Convert.ToString(reader["contrasena"]);
+                            usuario.isAdministrador = Convert.ToBoolean(reader["administrador"]);
+                        }
+                    }
+                }
+            }
+            return usuario;
+        }
+
+        public void actualizarInformaciónUsuario(int idUsuario, String nombre, String correo, String usuario, String contrasena, int telefono, bool isAdmin)
+        {
+            string query = "update usuario set nombre = @nombre, correo = @correo, usuario = @usuario, contrasena = @contrasena, telefono = @telefono, administrador = @isAdmin where idUsuario = @idUsuario;";
+            using (SqlConnection connection = new SqlConnection(conexionString.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@idUsuario", idUsuario);
+                    command.Parameters.AddWithValue("@nombre", nombre);
+                    command.Parameters.AddWithValue("@correo", correo);
+                    command.Parameters.AddWithValue("@usuario", usuario);
+                    command.Parameters.AddWithValue("@contrasena", contrasena);
+                    command.Parameters.AddWithValue("@telefono", telefono);
+                    command.Parameters.AddWithValue("@isAdmin", isAdmin);
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                }
+            }
+        }
 
         public IActionResult Index()
         {
@@ -190,6 +252,18 @@ namespace SistemaRecetas.Controllers
             return View();
         }
 
+        public IActionResult EditarUsuario(int idUsuario)
+        {
+            clUsuario usuario = obtenerInformacionUsuario(idUsuario);
+            ViewBag.Id = usuario.id;
+            ViewBag.Nombre = usuario.nombre;
+            ViewBag.Correo = usuario.correo;
+            ViewBag.Tipo = usuario.isAdministrador;
+            ViewBag.Usuario = usuario.usuario;
+            ViewBag.Contrasena = usuario.contrasena;
+            ViewBag.Telefono = usuario.telefono;
+            return View();
+        }
 
         public IActionResult Privacy()
         {
@@ -318,7 +392,6 @@ namespace SistemaRecetas.Controllers
 
             return Json(result);
         }
-
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

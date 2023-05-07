@@ -90,8 +90,8 @@
                                 "<td>" + json[i].nombre + "</td>" +
                                 "<td>" + json[i].usuario + "</td>" +
                                 "<td>" + json[i].contrasena + "</td>" +
-                                "<td><a class='btn btnPrincipal' ><i class='fa-solid fa-pen-to-square' title='Editar'></i></a></td>" +
-                                "<td><a class='btn btnPrincipal' ><i class='fa-solid fa-delete-left' title='Eliminar'></i></a></td>" +
+                                "<td><a class='btn btnPrincipal' onclick='navigateToEdit(" + json[i].id + ")'><i class='fa-solid fa-pen-to-square' title='Editar'></i></a></td>" +
+                                "<td><a class='btn btnPrincipal' onclick='eliminarUsuario(" + json[i].id + ")' ><i class='fa-solid fa-delete-left' title='Eliminar'></i></a></td>" +
 
                                 "</tr > ")).draw(false);
 
@@ -111,6 +111,30 @@
                     });
                 }
             });
+        }
+
+        function eliminarUsuario(idUsuario) {
+            $.ajax({
+                type: 'POST',
+                url: Ruta + "/Home/eliminarUsuario?idUsuario=" + idUsuario,
+                success: function (data) {
+                    cargarUsuarios();
+                    swal.fire({
+                        icon: 'success',
+                        html: '<h5>Usuario eliminado con éxito</h5>'
+                    });
+                },
+                error: function () {
+                    swal.fire({
+                        icon: 'error',
+                        html: '<h5>Error al eliminar el usuario</h5>'
+                    });
+                }
+            });
+        }
+
+        function navigateToEdit(idUsuario) {
+            window.location.href = '/Home/EditarUsuario?idUsuario='+idUsuario;
         }
     </script>
 </div>
