@@ -11,6 +11,32 @@ namespace CapaDatos.Receta
 {
     public class dbReceta
     {
+        public int eliminarReceta(SqlConnectionStringBuilder connString, int? InIdReceta)
+        {
+            int ResultCode = 0;
+
+            string queryString = "EXEC dbo.sp_EliminarReceta " +
+                "" + InIdReceta + ", " + 0 + "";
+
+            using (SqlConnection conexion = new SqlConnection(connString.ConnectionString))
+            {
+                using (var cmd = new SqlCommand(queryString, conexion))
+                {
+                    cmd.Connection = conexion;
+                    conexion.Open();
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            
+                        }
+                    }
+                }
+            }
+
+            return ResultCode;
+        }
         public List<clReceta> listarRecetas(SqlConnectionStringBuilder connString)
         {
             List<clReceta> listaRecetas = new List<clReceta>();
@@ -70,6 +96,8 @@ namespace CapaDatos.Receta
                             if (!reader.IsDBNull(5)) {
                                 receta.imagenes = reader.GetString(5);
                             }
+                            receta.idArea = reader.GetInt32(6);
+                            receta.idSubArea = reader.GetInt32(7);
                             receta.ingredientes = verIngredientesXReceta(connString, InIdReceta);
                             receta.pasos = verPasosXReceta(connString, InIdReceta);
                         }
@@ -127,6 +155,39 @@ namespace CapaDatos.Receta
                 }
             }
             return pasos;
+        }
+        public int editarReceta(SqlConnectionStringBuilder connString, clReceta inReceta)
+        {
+            int resultCode = 0;
+
+            string queryString = "EXEC dbo.sp_EditarRecetaCmp " +
+                "" + inReceta.id + ", " +
+                "'" + inReceta.nombre + "', " +
+                "" + inReceta.idArea + ", " +
+                "" + inReceta.idSubArea + ", " +
+                "'" + inReceta.descripcion + "', " +
+                "'" + inReceta.imagenes + "', " +
+                "'" + inReceta.pasos + "', " +
+                "'" + inReceta.ingredientes + "', " +
+                "" + 0 + "";
+
+            using (SqlConnection conexion = new SqlConnection(connString.ConnectionString))
+            {
+                using (var cmd = new SqlCommand(queryString, conexion))
+                {
+                    cmd.Connection = conexion;
+                    conexion.Open();
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            resultCode = reader.GetInt32(0);
+                        }
+                    }
+                }
+            }
+            return resultCode;
         }
         public int crearReceta(SqlConnectionStringBuilder connString, clReceta inReceta)
         {

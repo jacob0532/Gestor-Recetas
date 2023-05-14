@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/adrianvargas/Projects/Gestor-Recetas/Source/SistemaRecetas/CapaUtilitarios/CapaUtilitarios.csproj": {}
+    "C:\\Users\\rolbi\\OneDrive\\Escritorio\\GR\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaUtilitarios\\CapaUtilitarios.csproj": {}
   },
   "projects": {
-    "/Users/adrianvargas/Projects/Gestor-Recetas/Source/SistemaRecetas/CapaUtilitarios/CapaUtilitarios.csproj": {
+    "C:\\Users\\rolbi\\OneDrive\\Escritorio\\GR\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaUtilitarios\\CapaUtilitarios.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/adrianvargas/Projects/Gestor-Recetas/Source/SistemaRecetas/CapaUtilitarios/CapaUtilitarios.csproj",
+        "projectUniqueName": "C:\\Users\\rolbi\\OneDrive\\Escritorio\\GR\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaUtilitarios\\CapaUtilitarios.csproj",
         "projectName": "CapaUtilitarios",
-        "projectPath": "/Users/adrianvargas/Projects/Gestor-Recetas/Source/SistemaRecetas/CapaUtilitarios/CapaUtilitarios.csproj",
-        "packagesPath": "/Users/adrianvargas/.nuget/packages/",
-        "outputPath": "/Users/adrianvargas/Projects/Gestor-Recetas/Source/SistemaRecetas/CapaUtilitarios/obj/",
+        "projectPath": "C:\\Users\\rolbi\\OneDrive\\Escritorio\\GR\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaUtilitarios\\CapaUtilitarios.csproj",
+        "packagesPath": "C:\\Users\\rolbi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rolbi\\OneDrive\\Escritorio\\GR\\Gestor-Recetas\\Source\\SistemaRecetas\\CapaUtilitarios\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/adrianvargas/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\rolbi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -53,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.203/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
