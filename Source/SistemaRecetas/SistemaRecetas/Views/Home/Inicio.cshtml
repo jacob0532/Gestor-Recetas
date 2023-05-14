@@ -38,6 +38,7 @@
                             <td>Descripcion</td>
                             <td></td>
                             <td></td>
+                            <td></td>
                         </tr>
                     </thead>
                     <tbody id="cuerpoRecetas"></tbody>
@@ -92,14 +93,13 @@
 
                         for (var i in json)
                         {
-                            console.log(json);
                             table.row.add($("<tr>" +
                                 "<td hidden>" + json[i].idReceta + "</td>" +
                                 "<td>" + json[i].nombre + "</td>" +
                                 "<td>" + json[i].descripcion + "</td>" +
-                                "<td style='width: 5%'><button class='btn btnPrincipal' onclick='abrirModal(" + json[i].idReceta + ")'><i class='fa-solid fa-eye' title='VerReceta'></i></button></td>" +
-                                "<td><a class='btn btnPrincipal' ><i class='fa-solid fa-pen-to-square' title='Editar'></i></a></td>" +
-                                "<td><a class='btn btnPrincipal' ><i class='fa-solid fa-delete-left' title='Eliminar'></i></a></td>" +
+                                "<td><a class='btn btnPrincipal' onclick='abrirModal(" + json[i].idReceta + ")'><i class='fa-solid fa-eye' title='VerReceta'></i></a></td>" +
+                                "<td><a class='btn btnPrincipal' onclick='editarReceta(" + json[i].idReceta + ")'><i class='fa-solid fa-pen-to-square' title='Editar'></i></a></td>" +
+                                "<td><a class='btn btnPrincipal' onclick='eliminarReceta(" + json[i].idReceta + ")' ><i class='fa-solid fa-delete-left' title='Eliminar'></i></a></td>" +
 
                                 "</tr > ")).draw(false);
 
@@ -276,6 +276,40 @@
                 }
             });
         });
+
+
+        function eliminarReceta(idReceta) {
+            $.ajax({
+                type: 'POST',
+                url: Ruta + "/Home/eliminarReceta/",
+                data: {idReceta:idReceta},
+                success: function (data) {
+                    if(data == 0){
+                        cargarRecetas();
+
+                        swal.fire({
+                            icon: 'success',
+                            html: '<h5>Receta eliminada con éxito</h5>'
+                        });
+                    } else {
+                        swal.fire({
+                            icon: 'error',
+                            html: '<h5>Error al eliminar la receta</h5>'
+                        }); 
+                    }
+                },
+                error: function () {
+                    swal.fire({
+                        icon: 'error',
+                        html: '<h5>Error al eliminar la receta</h5>'
+                    });
+                }
+            });
+        }
+
+        function editarReceta(idReceta) {
+            window.location.href = '/Home/EditarReceta?idReceta=' + idReceta;
+        }
 
     </script>
  

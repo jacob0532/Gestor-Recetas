@@ -175,6 +175,18 @@ namespace SistemaRecetas.Controllers
             }
         }
 
+        public int eliminarReceta(int idReceta)
+        {
+            try {
+                dbReceta.eliminarReceta(conexionString,idReceta);
+                return 0;
+            } catch (Exception ex)
+            {
+                return 501;
+            }
+            
+        }
+
         public clUsuario obtenerInformacionUsuario(int idUsuario)
         {
             clUsuario usuario = new clUsuario();
@@ -262,6 +274,25 @@ namespace SistemaRecetas.Controllers
             ViewBag.Usuario = usuario.usuario;
             ViewBag.Contrasena = usuario.contrasena;
             ViewBag.Telefono = usuario.telefono;
+            return View();
+        }
+
+        public IActionResult EditarReceta(int idReceta)
+        {
+            clReceta receta = dbReceta.verRecetaEspecifica(conexionString,idReceta);
+
+            ViewBag.Id = receta.id;
+            ViewBag.IdArea = receta.idArea;
+            ViewBag.IdSubArea = receta.idSubArea;
+            ViewBag.Area = receta.area;
+            ViewBag.SubArea = receta.subarea;
+            ViewBag.Nombre = receta.nombre;
+            ViewBag.Descripcion = receta.descripcion;
+            ViewBag.Pasos = receta.pasos;
+            ViewBag.Ingredientes = receta.ingredientes;
+            ViewBag.Imagenes = receta.imagenes;
+
+
             return View();
         }
 
@@ -362,6 +393,32 @@ namespace SistemaRecetas.Controllers
             }
         }
 
+        // Editar Receta
+        public int actualizarReceta(int inIdReceta, string inNombre, int inArea, int inSubarea, string inDescripcion, string inMateriales, string inProcedimientos, String inImagenes)
+        {
+            int resultCode = 0;
+            clReceta receta = new clReceta();
+            receta.id = inIdReceta;
+            receta.nombre = inNombre;
+            receta.idArea = inArea;
+            receta.idSubArea = inSubarea;
+            receta.descripcion = inDescripcion;
+            receta.ingredientes = inMateriales;
+            receta.pasos = inProcedimientos;
+            receta.imagenes = inImagenes;
+
+            try
+            {
+                resultCode = dbReceta.editarReceta(conexionString, receta);
+
+                return resultCode;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return 501;
+            }
+        }
 
         // Listar Recetas
         public JsonResult listarRecetas()
