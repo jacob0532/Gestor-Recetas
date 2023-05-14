@@ -38,6 +38,7 @@
                             <td>Descripcion</td>
                             <td></td>
                             <td></td>
+                            <td></td>
                         </tr>
                     </thead>
                     <tbody id="cuerpoRecetas"></tbody>
@@ -92,14 +93,13 @@
 
                         for (var i in json)
                         {
-                            console.log(json);
                             table.row.add($("<tr>" +
                                 "<td hidden>" + json[i].idReceta + "</td>" +
                                 "<td>" + json[i].nombre + "</td>" +
                                 "<td>" + json[i].descripcion + "</td>" +
-                                "<td style='width: 5%'><button class='btn btnPrincipal' onclick='abrirModal(" + json[i].idReceta + ")'><i class='fa-solid fa-eye' title='VerReceta'></i></button></td>" +
-                                "<td><a class='btn btnPrincipal' ><i class='fa-solid fa-pen-to-square' title='Editar'></i></a></td>" +
-                                "<td><a class='btn btnPrincipal' ><i class='fa-solid fa-delete-left' title='Eliminar'></i></a></td>" +
+                                "<td><a class='btn btnPrincipal' onclick='abrirModal(" + json[i].idReceta + ")'><i class='fa-solid fa-eye' title='VerReceta'></i></a></td>" +
+                                "<td><a class='btn btnPrincipal' onclick='editarReceta(" + json[i].idReceta + ")'><i class='fa-solid fa-pen-to-square' title='Editar'></i></a></td>" +
+                                "<td><a class='btn btnPrincipal' onclick='eliminarReceta(" + json[i].idReceta + ")' ><i class='fa-solid fa-delete-left' title='Eliminar'></i></a></td>" +
 
                                 "</tr > ")).draw(false);
 
@@ -259,7 +259,6 @@
             $("#departamentos").change(function () 
             {
                 var idDepartamento = $(this).val(); // Obtiene el id del departamento seleccionado
-                let x=1;
                 if (idDepartamento)
                 { // Verifica que se haya seleccionado un departamento
                     $.getJSON("/Home/ObtenerSubDepartamentosPorDepartamento?idDepartamento=" + idDepartamento, function (data) {
@@ -267,8 +266,8 @@
                         options += "<option> Seleccione una subárea</option>";
                         $.each(data, function (key, subdepartamento)
                         {
-                            options += "<option value='" + x + "'>" + subdepartamento.nombre + "</option>";
-                            x++;
+                            console.log(subdepartamento);
+                            options += "<option value='" + subdepartamento.idSubdepartamento + "'>" + subdepartamento.nombre + "</option>";
                         });
                         $("#subdepartamentos").html(options); // Reemplaza las opciones del segundo select
                     });
@@ -278,63 +277,42 @@
             });
         });
 
-    </script>
-    
-    <!--
-    <script>
-        $(document).ready(function ()
-        {
-            $("#subdepartamentos").change(function () {
-                var idDepartamento = document.getElementById("departamentos").value;
-                var idSubDepartamento = document.getElementById("subdepartamentos").value;
-                fetch("/Home/ObtenerRecetaPorDepartamentoySubDepartamento?idDepartamento=" + idDepartamento + "&idSubDepartamento=" + idSubDepartamento)
-                    .then(response => response.json())
-                    .then(data => {
-                        var cuerpoTabla = document.getElementById("cuerpoRecetas");
-                        cuerpoTabla.innerHTML = "";
-                        data.forEach(function (receta)
-                        {
-                            var fila = document.createElement("tr");
-                            var celdaId = document.createElement("td");
-                            celdaId.hidden = true;
-                            celdaId.innerHTML = receta.idReceta;
-                            fila.appendChild(celdaId);
 
-                            var celdaNombre = document.createElement("td");
-                            celdaNombre.innerHTML = receta.nombre;
-                            fila.appendChild(celdaNombre);
+        function eliminarReceta(idReceta) {
+            $.ajax({
+                type: 'POST',
+                url: Ruta + "/Home/eliminarReceta/",
+                data: {idReceta:idReceta},
+                success: function (data) {
+                    if(data == 0){
+                        cargarRecetas();
 
-                            var celdaDescripcion = document.createElement("td");
-                            celdaDescripcion.innerHTML = receta.descripcion;
-                            fila.appendChild(celdaDescripcion);
-
-                            var celdaEditar = document.createElement("td");
-                            var enlaceEditar = document.createElement("a");
-                            enlaceEditar.href = "/EditarReceta/" + receta.idReceta;
-                            enlaceEditar.innerHTML = "Editar";
-                            celdaEditar.appendChild(enlaceEditar);
-                            fila.appendChild(celdaEditar);
-
-                            var celdaEliminar = document.createElement("td");
-                            var enlaceEliminar = document.createElement("a");
-                            enlaceEliminar.href = "/EliminarReceta/" + receta.idReceta;
-                            enlaceEliminar.innerHTML = "Eliminar";
-                            celdaEliminar.appendChild(enlaceEliminar);
-                            fila.appendChild(celdaEliminar);
-                            cuerpoTabla.appendChild(fila);
-
-                            var editLink = $('<a>Editar</a>').attr('href', '#').addClass('btn btn-primary');
-                            var deleteLink = $('<a>Borrar</a>').attr('href', '#').addClass('btn btn-danger');
-
-                            // Agregar los enlaces a la última celda de la fila
-                            row.append($('<td></td>').append(editLink).append(' ').append(deleteLink));
+                        swal.fire({
+                            icon: 'success',
+                            html: '<h5>Receta eliminada con éxito</h5>'
                         });
+                    } else {
+                        swal.fire({
+                            icon: 'error',
+                            html: '<h5>Error al eliminar la receta</h5>'
+                        }); 
+                    }
+                },
+                error: function () {
+                    swal.fire({
+                        icon: 'error',
+                        html: '<h5>Error al eliminar la receta</h5>'
                     });
+                }
             });
+        }
 
-        });
+        function editarReceta(idReceta) {
+            window.location.href = '/Home/EditarReceta?idReceta=' + idReceta;
+        }
+
     </script>
-    -->
+ 
 </div>
 
 

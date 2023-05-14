@@ -1,3 +1,4 @@
+using Azure;
 using CapaDatos.Conexion;
 using CapaDatos.Receta;
 using CapaDatos.Usuario;
@@ -28,23 +29,28 @@ namespace SistemaRecetas.Controllers
         {
             _logger = logger;
 
-
             /*string servidor = "LAPTOP-IHP166E9\\SQLEXPRESS01";
             string baseDatos = "GestorRecetas";
             string usuario = "daniel";
             string clave = "daniel";*/
             //conexionString = dbConexion.obtenerConexión(servidor, baseDatos, usuario, clave);
-            
+
             /*
             string servidor = "LAPTOP-B647LCTK\\SQLEXPRESS";
             string baseDatos = "Prueba";
             string usuario = "sa";
             string clave = "sa1234"; 
             */
-            
-            string servidor = "LAPTOP-140FDP4P\\JACOBBD";
-            string baseDatos = "GestorRecetas";
-            conexionString = dbConexion.obtenerConexion2(servidor, baseDatos);
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            var configuration = builder.Build();
+            var servidor = configuration["Servidor"];
+            var baseDatos = configuration["BaseDatos"];
+            var usr = configuration["Usuario"];
+            var pass = configuration["Clave"];
+            conexionString = dbConexion.obtenerConexión(servidor, baseDatos, usr, pass);
         }
 
         public List<Departamento> ObtenerDepartamentos()
@@ -155,6 +161,79 @@ namespace SistemaRecetas.Controllers
             return Json(result);
         }
 
+        public void eliminarUsuario(int idUsuario)
+        {
+            string query = "DELETE FROM usuario WHERE idUsuario = @idUsuario";
+            using (SqlConnection connection = new SqlConnection(conexionString.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@idUsuario", idUsuario);
+                    connection.Open();
+                    command.ExecuteReader();
+                }
+            }
+        }
+
+        public int eliminarReceta(int idReceta)
+        {
+            try {
+                dbReceta.eliminarReceta(conexionString,idReceta);
+                return 0;
+            } catch (Exception ex)
+            {
+                return 501;
+            }
+            
+        }
+
+        public clUsuario obtenerInformacionUsuario(int idUsuario)
+        {
+            clUsuario usuario = new clUsuario();
+            string query = "select * from usuario where idUsuario = @idUsuario";
+            using (SqlConnection connection = new SqlConnection(conexionString.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@idUsuario", idUsuario);
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            usuario.id = idUsuario;
+                            usuario.nombre = Convert.ToString(reader["nombre"]);
+                            usuario.correo = Convert.ToString(reader["correo"]);
+                            usuario.telefono = Convert.ToInt32(reader["telefono"]);
+                            usuario.usuario = Convert.ToString(reader["usuario"]);
+                            usuario.contrasena = Convert.ToString(reader["contrasena"]);
+                            usuario.isAdministrador = Convert.ToBoolean(reader["administrador"]);
+                        }
+                    }
+                }
+            }
+            return usuario;
+        }
+
+        public void actualizarInformaciónUsuario(int idUsuario, String nombre, String correo, String usuario, String contrasena, int telefono, bool isAdmin)
+        {
+            string query = "update usuario set nombre = @nombre, correo = @correo, usuario = @usuario, contrasena = @contrasena, telefono = @telefono, administrador = @isAdmin where idUsuario = @idUsuario;";
+            using (SqlConnection connection = new SqlConnection(conexionString.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@idUsuario", idUsuario);
+                    command.Parameters.AddWithValue("@nombre", nombre);
+                    command.Parameters.AddWithValue("@correo", correo);
+                    command.Parameters.AddWithValue("@usuario", usuario);
+                    command.Parameters.AddWithValue("@contrasena", contrasena);
+                    command.Parameters.AddWithValue("@telefono", telefono);
+                    command.Parameters.AddWithValue("@isAdmin", isAdmin);
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                }
+            }
+        }
 
         public IActionResult Index()
         {
@@ -185,6 +264,37 @@ namespace SistemaRecetas.Controllers
             return View();
         }
 
+        public IActionResult EditarUsuario(int idUsuario)
+        {
+            clUsuario usuario = obtenerInformacionUsuario(idUsuario);
+            ViewBag.Id = usuario.id;
+            ViewBag.Nombre = usuario.nombre;
+            ViewBag.Correo = usuario.correo;
+            ViewBag.Tipo = usuario.isAdministrador;
+            ViewBag.Usuario = usuario.usuario;
+            ViewBag.Contrasena = usuario.contrasena;
+            ViewBag.Telefono = usuario.telefono;
+            return View();
+        }
+
+        public IActionResult EditarReceta(int idReceta)
+        {
+            clReceta receta = dbReceta.verRecetaEspecifica(conexionString,idReceta);
+
+            ViewBag.Id = receta.id;
+            ViewBag.IdArea = receta.idArea;
+            ViewBag.IdSubArea = receta.idSubArea;
+            ViewBag.Area = receta.area;
+            ViewBag.SubArea = receta.subarea;
+            ViewBag.Nombre = receta.nombre;
+            ViewBag.Descripcion = receta.descripcion;
+            ViewBag.Pasos = receta.pasos;
+            ViewBag.Ingredientes = receta.ingredientes;
+            ViewBag.Imagenes = receta.imagenes;
+
+
+            return View();
+        }
 
         public IActionResult Privacy()
         {
@@ -283,6 +393,32 @@ namespace SistemaRecetas.Controllers
             }
         }
 
+        // Editar Receta
+        public int actualizarReceta(int inIdReceta, string inNombre, int inArea, int inSubarea, string inDescripcion, string inMateriales, string inProcedimientos, String inImagenes)
+        {
+            int resultCode = 0;
+            clReceta receta = new clReceta();
+            receta.id = inIdReceta;
+            receta.nombre = inNombre;
+            receta.idArea = inArea;
+            receta.idSubArea = inSubarea;
+            receta.descripcion = inDescripcion;
+            receta.ingredientes = inMateriales;
+            receta.pasos = inProcedimientos;
+            receta.imagenes = inImagenes;
+
+            try
+            {
+                resultCode = dbReceta.editarReceta(conexionString, receta);
+
+                return resultCode;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return 501;
+            }
+        }
 
         // Listar Recetas
         public JsonResult listarRecetas()
@@ -313,7 +449,6 @@ namespace SistemaRecetas.Controllers
 
             return Json(result);
         }
-
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

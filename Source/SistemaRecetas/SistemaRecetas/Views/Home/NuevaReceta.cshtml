@@ -18,7 +18,7 @@
             </div>
             <div class="col-md-3">
                 <select id="area" required class="form-control">
-                    <option value="1">Gastronomia</option>
+                    
                 </select>
             </div>
         </div>
@@ -28,7 +28,7 @@
             </div>
             <div class="col-md-3">
                 <select id="subarea" required class="form-control">
-                    <option value="1">Cocina</option>
+                    
                 </select>
             </div>
         </div>
@@ -178,4 +178,38 @@
             });
         }
     </script>
+
+    <script>
+        $(document).ready(function () {
+            // Carga los departamentos en el primer select
+            $.getJSON("/Home/ObtenerDepartamentos", function (data) {
+                var options = "";
+                $.each(data, function (key, area) {
+                    options += "<option value='" + area.idDepartamento + "'>" + area.nombre + "</option>";
+                });
+                $("#area").append(options);
+            });
+
+            // Agrega un evento change() al primer select para cargar los subdepartamentos
+            $("#area").change(function () {
+                var idDepartamento = $(this).val(); // Obtiene el id del departamento seleccionado
+                if (idDepartamento) { // Verifica que se haya seleccionado un departamento
+                    $.getJSON("/Home/ObtenerSubDepartamentosPorDepartamento?idDepartamento=" + idDepartamento, function (data) {
+                        var options = "";
+                        options += "<option> Seleccione una subárea</option>";
+                        $.each(data, function (key, subarea) {
+                            console.log(subarea);
+                            options += "<option value='" + subarea.idSubdepartamento + "'>" + subarea.nombre + "</option>";
+                        });
+                        $("#subarea").html(options); // Reemplaza las opciones del segundo select
+                    });
+                } else {
+                    $("#subarea").html(""); // Si no se seleccionó un departamento, vacía el segundo select
+                }
+            });
+        });
+
+    </script>
+
+
 </div>
