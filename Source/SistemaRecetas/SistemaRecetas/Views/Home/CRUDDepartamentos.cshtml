@@ -1,0 +1,414 @@
+﻿@{
+    ViewData["Title"] = "Gestión de departamentos";
+}
+
+<div class="">
+     
+    <div class="">
+        <h4> Crear nueva Área</h4>
+        <br>
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Nombre:</h5>
+            </div>
+            <div class="col-md-5">
+                <input type="text" id="inputNombreNuevoDepartamento" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-2">
+                <button id="btnGuardarDepartamento" class="btn btnPrincipal" onclick="guardarDepartamento();">Guardar</button>
+            </div>
+        </div>
+        <hr />
+        <h4> Editar Área</h4>
+        <br />
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Área:</h5>
+            </div>
+            <div class="col-md-5">
+                <select id="selectEditarDepartamento" required class="form-control">
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Nombre:</h5>
+            </div>
+            <div class="col-md-5">
+                <input type="text" id="inputEditarDepartamento" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-2">
+                <button class="btn btnPrincipal" onclick="editarDepartamento();">Guardar</button>
+            </div>
+        </div>
+        <hr />
+        <h4> Eliminar Área</h4>
+        <br />
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Área:</h5>
+            </div>
+            <div class="col-md-5">
+                <select id="selectEliminarDepartamento" required class="form-control">
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h7>Nota: por seguridad, no se podrá eliminar un área hasta que borren todas la recetas y sub áreas asociadas a esta</h7>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btnCancel" onclick="eliminarDepartamento();">Eliminar</button>
+            </div>
+        </div>
+        <hr />
+        <h4> Crear nueva Sub Área</h4>
+        <br>
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Área asociada:</h5>
+            </div>
+            <div class="col-md-5">
+                <select id="selectDepartamentoSubDepartamento" required class="form-control">
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Nombre:</h5>
+            </div>
+            <div class="col-md-5">
+                <input type="text" id="inputNombreSubDepartamento" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-2">
+                <button class="btn btnPrincipal" onclick="guardarSubDepartamento();">Guardar</button>
+            </div>
+        </div>
+        <hr />
+        <h4> Editar Sub Área</h4>
+        <br />
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Área:</h5>
+            </div>
+            <div class="col-md-5">
+                <select id="selectEditarSubDepartamento" required class="form-control">
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Nombre:</h5>
+            </div>
+            <div class="col-md-5">
+                <input type="text" id="inputEditarSubDepartamento" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-2">
+                <button class="btn btnPrincipal" onclick="editarSubDepartamento();">Guardar</button>
+            </div>
+        </div>
+        <hr />
+        <h4> Eliminar Sub Área</h4>
+        <br />
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Sub Área:</h5>
+            </div>
+            <div class="col-md-5">
+                <select id="selectEliminarSubDepartamento" required class="form-control">
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h7>Nota: por seguridad, no se podrá eliminar una sub área hasta que borren todas la recetas asociadas a esta</h7>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btnCancel" onclick="eliminarSubDepartamento();">Eliminar</button>
+            </div>
+        </div>
+        <hr />
+    </div>
+</div>
+
+<!-- cargar selects-->
+<script>
+    $(document).ready(function () {
+        // Carga los departamentos en el primer select
+        $.getJSON("/Home/ObtenerDepartamentos", function (data) {
+            var options = "";
+            options += "<option> Seleccione una Área</option>";
+            $.each(data, function (key, departamento) {
+                options += "<option value='" + departamento.idDepartamento + "'>" + departamento.nombre + "</option>";
+            });
+            $("#selectEditarDepartamento").append(options);
+            $("#selectEliminarDepartamento").append(options);
+            $("#selectDepartamentoSubDepartamento").append(options);
+        });
+    });
+
+    $(document).ready(function () {
+        // Carga los sub departamentos en el primer select
+        $.getJSON("/Home/ObtenerSubDepartamentos", function (data) {
+            var options = "";
+            options += "<option> Seleccione una Sub Área</option>";
+            $.each(data, function (key, subDepartamento) {
+                options += "<option value='" + subDepartamento.idSubdepartamento + "'>" + subDepartamento.nombre + "</option>";
+            });
+            $("#selectEditarSubDepartamento").append(options);
+            $("#selectEliminarSubDepartamento").append(options);
+        });
+    });
+
+</script>
+
+<!-- Guardar Departamento Nuevo -->
+<script>
+    function guardarDepartamento() {
+        var nombre = $('#inputNombreNuevoDepartamento').val();
+        var inputNombreNuevoDepartamento = document.getElementById('inputNombreNuevoDepartamento');
+
+        $.ajax({
+            type: 'POST',
+            url: Ruta + "/Home/crearDepartamento?nombre=" + nombre,
+            success: function (result)
+            {
+                if (result == 0) 
+                {
+                    swal.fire(
+                    {
+                        icon: 'success',
+                        html: '<h5>Datos Ingresados Correctamente</h5>',
+                        showConfirmButton: true
+                    });
+                } 
+                else
+                {
+                    swal.fire({
+                        icon: 'error',
+                        html: '<h5>No se guardó correctamente</h5>'
+                    });
+                }
+
+            },
+            error: function () {
+                swal.fire({
+                    icon: 'error',
+                    html: '<h5>No se guardaron los cambios realizados</h5>'
+                });
+            }
+        });
+        inputNombreNuevoDepartamento.value = '';
+    }
+
+</script>
+
+<!-- Editar Departamento  -->
+<script>
+
+    function editarDepartamento() {
+        var nombre = $('#inputEditarDepartamento').val();
+        var selectEditarDepartamento = document.getElementById('selectEditarDepartamento');
+        var selectedIndex = selectEditarDepartamento.selectedIndex;
+        var idDepartamento =  selectEditarDepartamento.options[selectedIndex].value;
+
+        $.ajax({
+            type: 'POST',
+            url: Ruta + "/Home/editarDepartamento?idDepartamento=" + idDepartamento + "&nombre="+nombre,
+            success: function (result) {
+                if (result == 0) {
+                    swal.fire(
+                        {
+                            icon: 'success',
+                            html: '<h5>Datos Actualizados Correctamente</h5>',
+                            showConfirmButton: true
+                        });
+                }
+                else {
+                    swal.fire({
+                        icon: 'error',
+                        html: '<h5>No se guardó correctamente</h5>'
+                    });
+                }
+
+            },
+            error: function () {
+                swal.fire({
+                    icon: 'error',
+                    html: '<h5>No se guardaron los cambios realizados</h5>'
+                });
+            }
+        });
+    }
+</script>
+
+<!-- Eliminar Departamento  -->
+<script>
+
+    function eliminarDepartamento() {
+        var selectEliminarDepartamento = document.getElementById('selectEliminarDepartamento');
+        var selectedIndex = selectEliminarDepartamento.selectedIndex;
+        var idDepartamento = selectEliminarDepartamento.options[selectedIndex].value;
+
+        $.ajax({
+            type: 'POST',
+            url: Ruta + "/Home/eliminarDepartamento?idDepartamento=" + idDepartamento,
+            success: function (result) {
+                if (result == 0) {
+                    swal.fire(
+                        {
+                            icon: 'success',
+                            html: '<h5>Datos Borrados Correctamente</h5>',
+                            showConfirmButton: true
+                        });
+                }
+                else {
+                    swal.fire({
+                        icon: 'error',
+                        html: '<h5>No se logró borrar, verifique que no tenga recetas ni sub áreas asociadas</h5>'
+                    });
+                }
+
+            },
+            error: function () {
+                swal.fire({
+                    icon: 'error',
+                    html: '<h5>No se guardaron los cambios realizados</h5>'
+                });
+            }
+        });
+    }
+</script>
+
+<!-- Guardar Sub Departamento Nuevo -->
+<script>
+    function guardarSubDepartamento() {
+        var nombre = $('#inputNombreSubDepartamento').val();
+        var selectDepartamentoSubDepartamento = document.getElementById('selectDepartamentoSubDepartamento');
+        var selectedIndex = selectDepartamentoSubDepartamento.selectedIndex;
+        var idDepartamento = selectDepartamentoSubDepartamento.options[selectedIndex].value;
+
+        $.ajax({
+            type: 'POST',
+            url: Ruta + "/Home/crearSubDepartamento?nombre=" + nombre + "&idDepartamento=" + idDepartamento ,
+            success: function (result) {
+                if (result == 0) {
+                    swal.fire(
+                        {
+                            icon: 'success',
+                            html: '<h5>Datos Ingresados Correctamente</h5>',
+                            showConfirmButton: true
+                        });
+                }
+                else {
+                    swal.fire({
+                        icon: 'error',
+                        html: '<h5>No se guardó correctamente</h5>'
+                    });
+                }
+
+            },
+            error: function () {
+                swal.fire({
+                    icon: 'error',
+                    html: '<h5>No se guardaron los cambios realizados</h5>'
+                });
+            }
+        });
+        inputNombreNuevoDepartamento.value = '';
+    }
+
+</script>
+
+<!-- Editar Sub Departamento  -->
+<script>
+
+    function editarSubDepartamento() {
+        var nombre = $('#inputEditarSubDepartamento').val();
+        var selectEditarSubDepartamento = document.getElementById('selectEditarSubDepartamento');
+        var selectedIndexSubDepartamento = selectEditarSubDepartamento.selectedIndex;
+        var idSubDepartamento = selectEditarSubDepartamento.options[selectedIndexSubDepartamento].value;
+
+        $.ajax({
+            type: 'POST',
+            url: Ruta + "/Home/editarSubDepartamento?idSubDepartamento=" + idSubDepartamento + "&nombre=" + nombre,
+            success: function (result) {
+                if (result == 0) {
+                    swal.fire(
+                        {
+                            icon: 'success',
+                            html: '<h5>Datos Actualizados Correctamente</h5>',
+                            showConfirmButton: true
+                        });
+                }
+                else {
+                    swal.fire({
+                        icon: 'error',
+                        html: '<h5>No se guardó correctamente</h5>'
+                    });
+                }
+
+            },
+            error: function () {
+                swal.fire({
+                    icon: 'error',
+                    html: '<h5>No se guardaron los cambios realizados</h5>'
+                });
+            }
+        });
+    }
+</script>
+
+<!-- Eliminar Sub Departamento  -->
+<script>
+
+    function eliminarSubDepartamento() {
+        var selectEliminarDepartamento = document.getElementById('selectEliminarSubDepartamento');
+        var selectedIndex = selectEliminarDepartamento.selectedIndex;
+        var idSubDepartamento = selectEliminarDepartamento.options[selectedIndex].value;
+
+        $.ajax({
+            type: 'POST',
+            url: Ruta + "/Home/eliminarSubDepartamento?idSubDepartamento=" + idSubDepartamento,
+            success: function (result) {
+                if (result == 0) {
+                    swal.fire(
+                        {
+                            icon: 'success',
+                            html: '<h5>Datos Borrados Correctamente</h5>',
+                            showConfirmButton: true
+                        });
+                }
+                else {
+                    swal.fire({
+                        icon: 'error',
+                        html: '<h5>No se logró borrar, verifique que no tenga recetas ni sub áreas asociadas</h5>'
+                    });
+                }
+
+            },
+            error: function () {
+                swal.fire({
+                    icon: 'error',
+                    html: '<h5>No se guardaron los cambios realizados</h5>'
+                });
+            }
+        });
+    }
+</script>
