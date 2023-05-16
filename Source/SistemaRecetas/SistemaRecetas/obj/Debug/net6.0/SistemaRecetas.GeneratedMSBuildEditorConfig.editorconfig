@@ -16,10 +16,6 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\yeico\Desktop\Gestor-Recetas\Source\SistemaRecetas\SistemaRecetas
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/yeico/Desktop/Gestor-Recetas/Source/SistemaRecetas/SistemaRecetas/Views/Home/CRUDDepartamentos.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDUlVERGVwYXJ0YW1lbnRvcy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/yeico/Desktop/Gestor-Recetas/Source/SistemaRecetas/SistemaRecetas/Views/Home/EditarReceta.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFZGl0YXJSZWNldGEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

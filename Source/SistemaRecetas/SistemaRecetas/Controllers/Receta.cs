@@ -7,7 +7,7 @@
         public int idDepartamento { get; set; }
         public int idSubdepartamento { get; set; }
         public string descripcion { get; set; }
-        public Byte imagenes { get; set;}
+        public string[] imagenes { get; set;}
 
           
     }

@@ -42,7 +42,9 @@ namespace SistemaRecetas.Controllers
             string clave = "sa1234"; 
             */
 
-            var builder = new ConfigurationBuilder()
+
+            /*var builder = new ConfigurationBuilder()
+
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             var configuration = builder.Build();
@@ -50,7 +52,11 @@ namespace SistemaRecetas.Controllers
             var baseDatos = configuration["BaseDatos"];
             var usr = configuration["Usuario"];
             var pass = configuration["Clave"];
-            conexionString = dbConexion.obtenerConexión(servidor, baseDatos, usr, pass);
+            conexionString = dbConexion.obtenerConexión(servidor, baseDatos, usr, pass);*/
+
+            string servidor = "LAPTOP-140FDP4P\\JACOBBD";
+            string baseDatos = "GestorRecetas";
+            conexionString = dbConexion.obtenerConexion2(servidor, baseDatos);
         }
 
         public List<Departamento> ObtenerDepartamentos()
@@ -131,7 +137,7 @@ namespace SistemaRecetas.Controllers
         public JsonResult ObtenerRecetaPorDepartamentoySubDepartamento(int idDepartamento, int idSubDepartamento)
         {
             List<Receta> recetas = new List<Receta>();
-            string query = "SELECT idReceta, nombre, idArea, idSubarea, descripcion, imagenes from receta " +
+            string query = "SELECT idReceta, nombre, idArea, idSubarea, descripcion from receta " +
                 "WHERE idArea = @idDepartamento AND idSubarea = @idSubDepartamento";
             using (SqlConnection connection = new SqlConnection(conexionString.ConnectionString))
             {
@@ -306,7 +312,19 @@ namespace SistemaRecetas.Controllers
             }
             
         }
+        public int eliminarImagenXReceta(int InIdImagenReceta)
+        {
+            try
+            {
+                dbReceta.eliminarImagenXReceta(conexionString, InIdImagenReceta);
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                return 501;
+            }
 
+        }
         public clUsuario obtenerInformacionUsuario(int idUsuario)
         {
             clUsuario usuario = new clUsuario();
@@ -404,7 +422,8 @@ namespace SistemaRecetas.Controllers
 
         public IActionResult EditarReceta(int idReceta)
         {
-            clReceta receta = dbReceta.verRecetaEspecifica(conexionString,idReceta);
+            clReceta receta = dbReceta.verRecetaEspecifica(conexionString, idReceta);
+
 
             ViewBag.Id = receta.id;
             ViewBag.IdArea = receta.idArea;
@@ -416,8 +435,7 @@ namespace SistemaRecetas.Controllers
             ViewBag.Pasos = receta.pasos;
             ViewBag.Ingredientes = receta.ingredientes;
             ViewBag.Imagenes = receta.imagenes;
-
-
+            ViewBag.IdImagenes = receta.idImagenes;
             return View();
         }
 
@@ -493,7 +511,7 @@ namespace SistemaRecetas.Controllers
 
 
         // Crear receta
-        public int crearReceta(string inNombre, int inArea, int inSubarea, string inDescripcion, string inMateriales, string inProcedimientos, String inImagenes)
+        public int crearReceta(string inNombre, int inArea, int inSubarea, string inDescripcion, string inMateriales, string inProcedimientos)
         {
             int resultCode = 0;
             clReceta receta = new clReceta();
@@ -503,7 +521,7 @@ namespace SistemaRecetas.Controllers
             receta.descripcion = inDescripcion;
             receta.ingredientes = inMateriales;
             receta.pasos = inProcedimientos;
-            receta.imagenes = inImagenes; 
+            //receta.imagenes = inImagenes; 
 
             try
             {
@@ -517,9 +535,35 @@ namespace SistemaRecetas.Controllers
                 return 501;
             }
         }
+        // insertar imagen receta
+        public int insertarImagenesReceta(int inIdReceta, string[] inImagenes)
+        {
+            int resultCode = 0;
+            Console.Write(inIdReceta);
+            try
+            {
+                Console.Write("largo" + inImagenes.Length);
+                for (int i = 0; i < inImagenes.Length; i++)
+                {
+                    resultCode = dbReceta.insertarImagenReceta(conexionString, inIdReceta, inImagenes[i]);
+                    if (resultCode != 0)
+                    {
+                        //Console.Write("adentro"+resultCode);
+                        return resultCode;
+                    }
+                }
+                //Console.Write("afuera"+resultCode);
+                return resultCode;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return 501;
+            }
+        }
 
         // Editar Receta
-        public int actualizarReceta(int inIdReceta, string inNombre, int inArea, int inSubarea, string inDescripcion, string inMateriales, string inProcedimientos, String inImagenes)
+        public int actualizarReceta(int inIdReceta, string inNombre, int inArea, int inSubarea, string inDescripcion, string inMateriales, string inProcedimientos)
         {
             int resultCode = 0;
             clReceta receta = new clReceta();
@@ -530,8 +574,7 @@ namespace SistemaRecetas.Controllers
             receta.descripcion = inDescripcion;
             receta.ingredientes = inMateriales;
             receta.pasos = inProcedimientos;
-            receta.imagenes = inImagenes;
-
+            //receta.imagenes = inImagenes;
             try
             {
                 resultCode = dbReceta.editarReceta(conexionString, receta);
