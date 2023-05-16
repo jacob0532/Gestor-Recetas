@@ -18,7 +18,6 @@
             </div>
             <div class="col-md-3">
                 <select id="area" required class="form-control">
-                    
                 </select>
             </div>
         </div>
@@ -28,7 +27,6 @@
             </div>
             <div class="col-md-3">
                 <select id="subarea" required class="form-control">
-                    
                 </select>
             </div>
         </div>
@@ -210,6 +208,7 @@
             // Carga los departamentos en el primer select
             $.getJSON("/Home/ObtenerDepartamentos", function (data) {
                 var options = "";
+                options += "<option> Seleccione una Área</option>";
                 $.each(data, function (key, area) {
                     options += "<option value='" + area.idDepartamento + "'>" + area.nombre + "</option>";
                 });

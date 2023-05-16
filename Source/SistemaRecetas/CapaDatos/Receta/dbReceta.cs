@@ -243,6 +243,39 @@ namespace CapaDatos.Receta
                 "" + inReceta.idArea + ", " +
                 "" + inReceta.idSubArea + ", " +
                 "'" + inReceta.descripcion + "', " +
+                "'" + inReceta.imagenes + "', " +
+                "'" + inReceta.pasos + "', " +
+                "'" + inReceta.ingredientes + "', " +
+                "" + 0 + "";
+
+            using (SqlConnection conexion = new SqlConnection(connString.ConnectionString))
+            {
+                using (var cmd = new SqlCommand(queryString, conexion))
+                {
+                    cmd.Connection = conexion;
+                    conexion.Open();
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            resultCode = reader.GetInt32(0);
+                        }
+                    }
+                }
+            }
+            return resultCode;
+        }
+        public int crearReceta(SqlConnectionStringBuilder connString, clReceta inReceta)
+        {
+            int resultCode = 0;
+
+            string queryString = "EXEC dbo.sp_EditarRecetaCmp " +
+                "" + inReceta.id + ", " +
+                "'" + inReceta.nombre + "', " +
+                "" + inReceta.idArea + ", " +
+                "" + inReceta.idSubArea + ", " +
+                "'" + inReceta.descripcion + "', " +
                 //"'" + inReceta.imagenes + "', " +
                 "'" + inReceta.pasos + "', " +
                 "'" + inReceta.ingredientes + "', " +

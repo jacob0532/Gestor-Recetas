@@ -42,7 +42,9 @@ namespace SistemaRecetas.Controllers
             string clave = "sa1234"; 
             */
 
+
             /*var builder = new ConfigurationBuilder()
+
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             var configuration = builder.Build();
@@ -164,7 +166,127 @@ namespace SistemaRecetas.Controllers
             var result = JsonConvert.SerializeObject(recetas);
             return Json(result);
         }
+        public void crearDepartamento(string nombre)
+        {
+            string query = "INSERT INTO departamento(nombre) VALUES(@nombre);";
+            using (SqlConnection connection = new SqlConnection(conexionString.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@nombre", nombre);
+                    connection.Open();
+                    command.ExecuteReader();
+                }
+            }
+        }
 
+        public void editarDepartamento(int idDepartamento, string nombre)
+        {
+            string query = "UPDATE departamento SET nombre = @nombre WHERE idDepartamento = @idDepartamento;";
+            using (SqlConnection connection = new SqlConnection(conexionString.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@nombre", nombre);
+                    command.Parameters.AddWithValue("@idDepartamento", idDepartamento);
+                    connection.Open();
+                    command.ExecuteReader();
+                }
+            }
+        }
+
+        public int eliminarDepartamento(int idDepartamento)
+        {
+            string query = "DELETE FROM departamento WHERE idDepartamento = @idDepartamento;";
+            using (SqlConnection connection = new SqlConnection(conexionString.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@idDepartamento", idDepartamento);
+                    connection.Open();
+                    try
+                    {
+                        command.ExecuteReader();
+                        return 0;
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                        return 1;
+                    }
+                }   
+            }
+        }
+
+        public void crearSubDepartamento(string nombre, int idDepartamento)
+        {
+            string query = "INSERT INTO subDepartamento(nombre, idDepartamento) VALUES(@nombre,@idDepartamento);";
+            using (SqlConnection connection = new SqlConnection(conexionString.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@nombre", nombre);
+                    command.Parameters.AddWithValue("@idDepartamento", idDepartamento);
+                    connection.Open();
+                    try
+                    {
+                        command.ExecuteReader();
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                    }
+                    
+                }
+            }
+        }
+
+        public void editarSubDepartamento(int idSubDepartamento, string nombre)
+        {
+            Console.WriteLine("ID: " + idSubDepartamento.ToString());
+            string query = "UPDATE subDepartamento SET nombre = @nombre WHERE idSubDepartamento = @idSubDepartamento;";
+            using (SqlConnection connection = new SqlConnection(conexionString.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@nombre", nombre);
+                    command.Parameters.AddWithValue("@idSubDepartamento", idSubDepartamento);
+                    connection.Open();
+                    try
+                    {
+                        command.ExecuteReader();
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                    }
+                    
+                }
+            }
+        }
+
+        public int eliminarSubDepartamento(int idSubDepartamento)
+        {
+            string query = "DELETE FROM subdepartamento WHERE idSubDepartamento = @idSubDepartamento;";
+            using (SqlConnection connection = new SqlConnection(conexionString.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@idSubDepartamento", idSubDepartamento);
+                    connection.Open();
+                    try
+                    {
+                        command.ExecuteReader();
+                        return 0;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                        return 1;
+                    }
+                }
+            }
+        }
         public void eliminarUsuario(int idUsuario)
         {
             string query = "DELETE FROM usuario WHERE idUsuario = @idUsuario";
@@ -190,7 +312,6 @@ namespace SistemaRecetas.Controllers
             }
             
         }
-
         public int eliminarImagenXReceta(int InIdImagenReceta)
         {
             try
@@ -204,7 +325,6 @@ namespace SistemaRecetas.Controllers
             }
 
         }
-
         public clUsuario obtenerInformacionUsuario(int idUsuario)
         {
             clUsuario usuario = new clUsuario();
@@ -277,6 +397,11 @@ namespace SistemaRecetas.Controllers
             return View();
         }
 
+        public IActionResult CRUDDEpartamentos()
+        {
+            return View();
+        }
+
         public IActionResult NuevoUsuario()
         {
             return View();
@@ -298,6 +423,7 @@ namespace SistemaRecetas.Controllers
         public IActionResult EditarReceta(int idReceta)
         {
             clReceta receta = dbReceta.verRecetaEspecifica(conexionString, idReceta);
+
 
             ViewBag.Id = receta.id;
             ViewBag.IdArea = receta.idArea;
@@ -409,7 +535,6 @@ namespace SistemaRecetas.Controllers
                 return 501;
             }
         }
-
         // insertar imagen receta
         public int insertarImagenesReceta(int inIdReceta, string[] inImagenes)
         {
@@ -450,7 +575,6 @@ namespace SistemaRecetas.Controllers
             receta.ingredientes = inMateriales;
             receta.pasos = inProcedimientos;
             //receta.imagenes = inImagenes;
-
             try
             {
                 resultCode = dbReceta.editarReceta(conexionString, receta);
