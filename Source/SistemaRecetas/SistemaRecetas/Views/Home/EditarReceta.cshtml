@@ -5,6 +5,7 @@
 <div class="">
     <div class="">
         <input hidden id="idReceta" value="@ViewBag.Id" />
+        <div id="contenedorImagenes"></div>
         <div class="row">
             <div class="col-md-3">
                 <h5>Nombre:</h5>
@@ -57,7 +58,6 @@
                 <textarea id="procedimientos" class="form-control" rows="6">@ViewBag.Descripcion</textarea>
             </div>
         </div>
-        <div id="contenedorImagenes"></div>
         <div class="row">
             <div class="col-md-3">
                 <h5>Imagenes:</h5>
@@ -181,8 +181,7 @@
                         inSubarea: subarea,
                         inDescripcion: descripcion,
                         inMateriales: materiales,
-                        inProcedimientos: procedimientos,
-                        inImagenes: imagenes
+                        inProcedimientos: procedimientos
                     },
                     success: function (result) {
                         if (result == 0) {
@@ -201,7 +200,7 @@
                                             showConfirmButton: true
                                         });
                                         sleep(2000).then(() => {
-                                            window.location.href = "@Url.Action("Inicio", "Home")";
+                                            location.reload();
                                         });
                                     }
                                     else {

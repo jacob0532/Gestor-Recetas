@@ -142,64 +142,74 @@
             var materiales = $('#materiales').val();
             var procedimientos = $('#procedimientos').val();
             // Espera a que la promesa se resuelva para obtener el valor de imagenes
-            obtenerImagen().then(function (imagenes) {
-                //console.log("------------> " + imagenes.length);
-                $.ajax({
-                    type: 'POST',
-                    url: Ruta + "/Home/crearReceta/",
-                    data: {
-                        inNombre: nombre,
-                        inArea: area,
-                        inSubarea: subarea,
-                        inDescripcion: descripcion,
-                        inMateriales: materiales,
-                        inProcedimientos: procedimientos
-                    },
-                    success: function (result) {
-                        //console.log(imagenes);
-                        if (result == 0) {
-                            $.ajax({
-                                type: 'POST',
-                                url: Ruta + "/Home/insertarImagenesReceta",
-                                data: {
-                                    inIdReceta: 0,
-                                    inImagenes: imagenes
-                                },
-                                success: function (result) {
-                                    if (result == 0) {
-                                        swal.fire({
-                                            icon: 'success',
-                                            html: '<h5>Datos Ingresados Correctamente</h5>',
-                                            showConfirmButton: true
-                                        });
-                                        sleep(2000).then(() => {
-                                            window.location.href = "@Url.Action("Inicio", "Home")";
-                                        });
+            if (document.getElementById('imagenes').files.length!=0){
+                obtenerImagen().then(function (imagenes) {
+                    //console.log("------------> " + imagenes.length);
+                    $.ajax({
+                        type: 'POST',
+                        url: Ruta + "/Home/crearReceta/",
+                        data: {
+                            inNombre: nombre,
+                            inArea: area,
+                            inSubarea: subarea,
+                            inDescripcion: descripcion,
+                            inMateriales: materiales,
+                            inProcedimientos: procedimientos
+                        },
+                        success: function (result) {
+                            //console.log(imagenes);
+                            if (result == 0) {
+                                $.ajax({
+                                    type: 'POST',
+                                    url: Ruta + "/Home/insertarImagenesReceta",
+                                    data: {
+                                        inIdReceta: 0,
+                                        inImagenes: imagenes
+                                    },
+                                    success: function (result) {
+                                        if (result == 0) {
+                                            swal.fire({
+                                                icon: 'success',
+                                                html: '<h5>Datos Ingresados Correctamente</h5>',
+                                                showConfirmButton: true
+                                            });
+                                            sleep(2000).then(() => {
+                                                window.location.href = "@Url.Action("Inicio", "Home")";
+                                            });
+                                        }
+                                        else {
+                                            swal.fire({
+                                                icon: 'error',
+                                                html: '<h5>No se guardaron los cambios correctamente [IMAGENES]</h5>'
+                                            });
+                                        }
                                     }
-                                    else {
-                                        swal.fire({
-                                            icon: 'error',
-                                            html: '<h5>No se guardaron los cambios correctamente [IMAGENES]</h5>'
-                                        });
-                                    }
-                                }
-                            });
+                                });
 
-                        } else {
+                            } else {
+                                swal.fire({
+                                    icon: 'error',
+                                    html: '<h5>No se guardaron los cambios correctamente [DATOS]</h5>'
+                                });
+                            }
+                        },
+                        error: function () {
                             swal.fire({
                                 icon: 'error',
-                                html: '<h5>No se guardaron los cambios correctamente [DATOS]</h5>'
+                                html: '<h5>No se guardaron los cambios realizados</h5>'
                             });
                         }
-                    },
-                    error: function () {
-                        swal.fire({
-                            icon: 'error',
-                            html: '<h5>No se guardaron los cambios realizados</h5>'
-                        });
-                    }
+                    });
                 });
-            });
+
+            }
+            else{
+                swal.fire({
+                    icon: 'error',
+                    html: '<h5>No se guardaron los cambios correctamente [DATOS]</h5>'
+                });
+            }
+            
         }
     </script>
 
