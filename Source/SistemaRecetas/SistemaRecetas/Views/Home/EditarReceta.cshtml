@@ -57,12 +57,13 @@
                 <textarea id="procedimientos" class="form-control" rows="6">@ViewBag.Descripcion</textarea>
             </div>
         </div>
+        <div id="contenedorImagenes"></div>
         <div class="row">
             <div class="col-md-3">
                 <h5>Imagenes:</h5>
             </div>
             <div class="col-md-7">
-                <label class="form-label" for="customFile">Seleccionar imagen</label>
+                <label class="form-label" for="customFile">Agregar imagenes</label>
                 <input id="imagenes" type="file" class="form-control" accept="image/*" multiple />
             </div>
         </div>
@@ -77,59 +78,90 @@
 
 
     </div>
+    @{
+        var imagenesJson = System.Text.Json.JsonSerializer.Serialize(ViewBag.Imagenes);
+        var idRecetaJson = System.Text.Json.JsonSerializer.Serialize(ViewBag.Id);
+        var idImagenesJson = System.Text.Json.JsonSerializer.Serialize(ViewBag.IdImagenes);
+    }
+    <script>
+        function checkImageSize(event) {
+            var files = event.target.files; // Obtener los archivos seleccionados
 
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var fileSize = file.size; // Tamaño del archivo en bytes
+                var maxSize = 3 * 1024 * 1024; // Tamaño máximo permitido: 3MB
 
+                if (fileSize > maxSize) {
+                    alert('El archivo "' + file.name + '" supera el tamaño máximo permitido de 3MB.');
+                    // Limpiar el input de archivo para deseleccionar el archivo inválido
+                    document.getElementById('imagenes').value = '';
+                    return;
+                }
+            }
+        }
+    </script>
     <script>
         $(document).ready(function () {
-            /*
-            // Obtener el input de tipo "file"
-            var inputImagenes = document.getElementById('imagenes');
-            // Obtener el elemento donde mostrar la imagen
-            //var contenedorImagen = document.getElementById('contenedor-imagen');
-            // Escuchar el evento "change" del input
-            inputImagenes.addEventListener('change', function () {
-                // Obtener la primera imagen seleccionada
-                var imagen = inputImagenes.files[0];
-                // Crear un objeto FileReader
-                var lector = new FileReader();
-                // Escuchar el evento "load" del FileReader
-                lector.addEventListener('load', function () {
-                    // Obtener la URL de datos Base 64 de la imagen
-                    var urlBase64 = lector.result;
-                    /*
-                    // Eliminar la imagen actual si existe
-                    var imagenActual = contenedorImagen.querySelector('img');
-                    if (imagenActual) {
-                        contenedorImagen.removeChild(imagenActual);
-                    }
-                    // Crear un elemento de imagen
-                    var img = document.createElement('img');
-                    // Establecer la URL de datos como atributo "src" de la imagen
-                    img.src = urlBase64;
-                    img.width = '500';
-                    img.height = '500';
-                    // Agregar la imagen al contenedor
-                    contenedorImagen.appendChild(img);*//*
+            var imagenes = @Html.Raw(imagenesJson);
+            var idImagenes = @Html.Raw(idImagenesJson);
+            for (var i = 0; i < imagenes.length; i++) {
+                var imagenDiv = '<div class="row">';
+                imagenDiv += '<div class="col">';
+                imagenDiv += '<div class="row align-items-center">';
+                imagenDiv += '<div class="col-md-3">';
+                imagenDiv += '<h5>Imagen ' + (i + 1) + ':</h5>';
+                imagenDiv += '</div>';
+                imagenDiv += '<div class="col-md-2">';
+                imagenDiv += '<img src="' + imagenes[i] + '" alt="Imagen ' + (i + 1) + '" class="imagenTabla" style="width: 100px; height: 100px;" />';
+                imagenDiv += '</div>';
+                imagenDiv += '<div class="col-md-7">';
+                imagenDiv += '<button class="btn btn-danger" onclick="eliminarImagenReceta(' + idImagenes[i] + ');">Eliminar</button>';
+                imagenDiv += '</div>';
+                imagenDiv += '</div>';
+                imagenDiv += '</div>';
+                imagenDiv += '</div>';
+                $('#contenedorImagenes').append(imagenDiv);
+            }
         });
-        // Leer la imagen como URL de datos Base 64
-        lector.readAsDataURL(imagen);
-        });*/
-        });
-        //var imagenes;
+
         function obtenerImagen() {
+            var archivos = document.getElementById('imagenes').files;
             return new Promise(function (resolve, reject) {
-                var inputImagenes = document.getElementById('imagenes');
-                var imagen = inputImagenes.files[0];
-                var lector = new FileReader();
-                lector.addEventListener('load', function () {
-                    console.log("error");
-                    imagenes = lector.result;
-                    console.log(imagenes);
-                    resolve(imagenes); // Resuelve la promesa con el valor de imagenes
-                });
-                lector.readAsDataURL(imagen);
+                var promesasLectura = [];
+                var datosURL = [];
+                for (var i = 0; i < archivos.length; i++) {
+                    var promesaLectura = new Promise(function (resolve, reject) {
+                        var lector = new FileReader();
+                        lector.addEventListener('load', function (evento) {
+                            console.log("no error");
+                            if (lector.result != null) {
+                                //console.log(lector.result);
+                                evento.target.result = lector.result.toString();
+                                resolve(evento.target.result);
+                            } else {
+                                reject('Error al leer el archivo');
+                            }
+                        });
+                        lector.addEventListener('error', function (evento) {
+                            console.log("error");
+                            reject(evento.target.error);
+                        });
+                        lector.readAsDataURL(archivos[i]);
+                    });
+                    promesasLectura.push(promesaLectura);
+                }
+                Promise.all(promesasLectura)
+                    .then(function (resultados) {
+                        resolve(resultados);
+                    })
+                    .catch(function (error) {
+                        reject(error);
+                    });
             });
         }
+
+        
         function guardarReceta() {
             var idReceta = $('#idReceta').val();
             var nombre = $('#nombre').val();
@@ -156,18 +188,37 @@
                     },
                     success: function (result) {
                         if (result == 0) {
-                            swal.fire({
-                                icon: 'success',
-                                html: '<h5>Datos Guardados Correctamente</h5>',
-                                showConfirmButton: true
+                            $.ajax({
+                                type: 'POST',
+                                url: Ruta + "/Home/insertarImagenesReceta",
+                                data: {
+                                    inIdReceta: idReceta,
+                                    inImagenes: imagenes
+                                },
+                                success: function (result) {
+                                    if (result == 0) {
+                                        swal.fire({
+                                            icon: 'success',
+                                            html: '<h5>Datos Ingresados Correctamente</h5>',
+                                            showConfirmButton: true
+                                        });
+                                        sleep(2000).then(() => {
+                                            window.location.href = "@Url.Action("Inicio", "Home")";
+                                        });
+                                    }
+                                    else {
+                                        swal.fire({
+                                            icon: 'error',
+                                            html: '<h5>No se guardaron los cambios correctamente [IMAGENES]</h5>'
+                                        });
+                                    }
+                                }
                             });
-                            sleep(2000).then(() => {
-                                window.location.href = "@Url.Action("Inicio", "Home")";
-                            });
+
                         } else {
                             swal.fire({
                                 icon: 'error',
-                                html: '<h5>No se guardaron los cambios correctamente</h5>'
+                                html: '<h5>No se guardaron los cambios correctamente [DATOS]</h5>'
                             });
                         }
                     },
@@ -180,6 +231,37 @@
                 });
             });
         }
+
+        function eliminarImagenReceta(idImagenReceta) {
+            $.ajax({
+                type: 'POST',
+                url: Ruta + "/Home/eliminarImagenXReceta/",
+                data: { InIdImagenReceta: idImagenReceta },
+                success: function (data) {
+                    if (data == 0) {
+                        swal.fire({
+                            icon: 'success',
+                            html: '<h5>Imagen eliminada con exito</h5>'
+                        });
+                        sleep(2000).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        swal.fire({
+                            icon: 'error',
+                            html: '<h5>Error al eliminar la imagen</h5>'
+                        });
+                    }
+                },
+                error: function () {
+                    swal.fire({
+                        icon: 'error',
+                        html: '<h5>Error al eliminar la imagen</h5>'
+                    });
+                }
+            });
+        }
+
     </script>
 
     <script>

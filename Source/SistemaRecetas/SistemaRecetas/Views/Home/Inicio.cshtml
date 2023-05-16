@@ -125,7 +125,7 @@
             $.ajax({
                 type: 'POST',
                 url: Ruta + "/Home/verRecetaEspecifica/",
-                data: { idReceta: id},
+                data: { idReceta: id },
                 success: function (data) {
                     try {
                         var json = JSON.parse(data);
@@ -144,11 +144,11 @@
                         var ingredientes = json.ingredientes.split("-");
                         var listaIngredientes = "";
                         var listaPasos = "";
-                        for (let i = 0; i < ingredientes.length-1; i++) {
+                        for (let i = 0; i < ingredientes.length - 1; i++) {
                             listaIngredientes += '<li class="list-group-item fw-bold border-0" style="background-color: transparent;color:#fff;">' + ingredientes[i] + '</li>'
                         }
                         var pasos = json.pasos.split("-");
-                        for (let i = 0; i < pasos.length-1; i++) {
+                        for (let i = 0; i < pasos.length - 1; i++) {
                             listaPasos += '<li class="list-group-item fw-bold border-0" style="background-color: transparent;color:#fff;">' + pasos[i] + '</li>'
                         }
 
@@ -160,26 +160,24 @@
                             '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
                             '</div>' +
                             '<div class="modal-body">' +
-                            '<div class="container-fluid" >' + 
-                            '<div class="row">' + 
+                            '<div class="container-fluid" >' +
+                            '<div class="row">' +
                             //titulo y descripción
                             '<div class="col-4" style="text-align: center;padding: 5px;">' +
                             '<h3 class="fw-bold" style="text-align: center;color:#f4f4f4;">' + json.nombre + '</h3>' +
                             '<p class="fw-bold" style="text-align: center;color:#f4f4f4;">' + json.descripcion + '</p>' +
-                            '</div>' +
-                            //carrusel
-                            '<div class="col-8" style="text-align: center;padding: 5px;">' +
+                            '</div>';
+                        var carrusel = json.imagenes;
+                        var listaImagenesCarrusel = '<div class="col-8" style="text-align: center;padding: 5px;">' +
                             '<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">' +
-                            '<div class="carousel-inner">' +
-                            '<div class="carousel-item active">' +
-                            '<img src="' + json.imagenes + '" class="d-block w-100" style="width: 300px; height: 300px;">' +
-                            '</div>' +
-                            '<div class="carousel-item">' +
-                            '<img src="' + json.imagenes + '" class="d-block w-100" style="width: 300px; height: 300px;">' +
-                            '</div>' +
-                            '<div class="carousel-item">' +
-                            '<img src="' + json.imagenes + '" class="d-block w-100" style="width: 300px; height: 300px;">' +
-                            '</div>' +
+                            '<div class="carousel-inner">';
+                        for (let i = 0; i < carrusel.length; i++) {
+                            listaImagenesCarrusel += '<div class="carousel-item active">' +
+                                '<img src="' + carrusel[i] + '" class="d-block w-100" style="width: 300px; height: 300px;">' +
+                                '</div>';
+
+                        }
+                        modalHtml += listaImagenesCarrusel +
                             '</div>' +
                             '<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">' +
                             '<span class="carousel-control-prev-icon" aria-hidden="true"></span>' +
@@ -196,14 +194,14 @@
                             '<div class="col-4" style="text-align: center;padding: 5px;">' +
                             '<h3 class="fw-bold" style="text-align: center;color:#f4f4f4;">Ingredientes</h3>' +
                             '<ul class="list-group list-group-numbered" style="text-align: center;">' +
-                            listaIngredientes + 
+                            listaIngredientes +
                             '</ul>' +
-                            '</div>'+
+                            '</div>' +
                             //Lista de procedimientos
                             '<div class="col-8" style="text-align: center;padding: 5px;">' +
                             '<h3 class="fw-bold" style="text-align: center;color:#f4f4f4;">Instrucciones</h3>' +
                             '<ul class="list-group list-group-numbered" style="text-align: center;">' +
-                            listaPasos + 
+                            listaPasos +
                             '</ul>' +
                             '</div>' +
                             '</div>' +
@@ -211,7 +209,8 @@
                             '</div>' +
                             '</div>' +
                             '</div>';
-                        
+
+
                         $(modalHtml).appendTo('body');
                         $('#mi-modal').modal('show');
                         $('#mi-modal').on('shown.bs.modal', function () {
