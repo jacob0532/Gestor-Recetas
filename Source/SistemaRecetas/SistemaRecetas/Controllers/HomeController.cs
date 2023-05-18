@@ -542,7 +542,7 @@ namespace SistemaRecetas.Controllers
             Console.Write(inIdReceta);
             try
             {
-                Console.Write("largo" + inImagenes.Length);
+                //Console.Write("largo" + inImagenes.Length);
                 for (int i = 0; i < inImagenes.Length; i++)
                 {
                     resultCode = dbReceta.insertarImagenReceta(conexionString, inIdReceta, inImagenes[i]);

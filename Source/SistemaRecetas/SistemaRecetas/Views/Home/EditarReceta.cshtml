@@ -64,7 +64,7 @@
             </div>
             <div class="col-md-7">
                 <label class="form-label" for="customFile">Agregar imagenes</label>
-                <input id="imagenes" type="file" class="form-control" accept="image/*" multiple />
+                <input id="imagenes" type="file" class="form-control" accept="image/*" multiple onchange="checkImageSize(event)"/>
             </div>
         </div>
         <div class="row">
@@ -90,10 +90,10 @@
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
                 var fileSize = file.size; // Tamaño del archivo en bytes
-                var maxSize = 3 * 1024 * 1024; // Tamaño máximo permitido: 3MB
+                var maxSize = 2 * 1024 * 1024; // Tamaño máximo permitido: 2MB
 
                 if (fileSize > maxSize) {
-                    alert('El archivo "' + file.name + '" supera el tamaño máximo permitido de 3MB.');
+                    alert('El archivo "' + file.name + '" supera el tamaño máximo permitido de 2MB.');
                     // Limpiar el input de archivo para deseleccionar el archivo inválido
                     document.getElementById('imagenes').value = '';
                     return;
@@ -185,33 +185,47 @@
                     },
                     success: function (result) {
                         if (result == 0) {
-                            $.ajax({
-                                type: 'POST',
-                                url: Ruta + "/Home/insertarImagenesReceta",
-                                data: {
-                                    inIdReceta: idReceta,
-                                    inImagenes: imagenes
-                                },
-                                success: function (result) {
-                                    if (result == 0) {
-                                        swal.fire({
-                                            icon: 'success',
-                                            html: '<h5>Datos Ingresados Correctamente</h5>',
-                                            showConfirmButton: true
-                                        });
-                                        sleep(2000).then(() => {
-                                            location.reload();
-                                        });
+                            if (imagenes.length != 0) {
+                                $.ajax({
+                                    type: 'POST',
+                                    url: Ruta + "/Home/insertarImagenesReceta",
+                                    data: {
+                                        inIdReceta: idReceta,
+                                        inImagenes: imagenes
+                                    },
+                                    success: function (result) {
+                                        if (result == 0) {
+                                            swal.fire({
+                                                icon: 'success',
+                                                html: '<h5>Datos Modificados Correctamente</h5>',
+                                                showConfirmButton: true
+                                            });
+                                            sleep(2000).then(() => {
+                                                //location.reload();
+                                                window.location.href = "@Url.Action("Inicio", "Home")";
+                                            });
+                                        }
+                                        else {
+                                            swal.fire({
+                                                icon: 'error',
+                                                html: '<h5>No se guardaron los cambios correctamente [IMAGENES]</h5>'
+                                            });
+                                        }
                                     }
-                                    else {
-                                        swal.fire({
-                                            icon: 'error',
-                                            html: '<h5>No se guardaron los cambios correctamente [IMAGENES]</h5>'
-                                        });
-                                    }
-                                }
-                            });
+                                });
+                            }
+                            else{
+                                swal.fire({
+                                    icon: 'success',
+                                    html: '<h5>Datos Modificados Correctamente</h5>',
+                                    showConfirmButton: true
+                                });
+                                sleep(2000).then(() => {
+                                    //location.reload();
+                                    window.location.href = "@Url.Action("Inicio", "Home")";
+                                });
 
+                            }
                         } else {
                             swal.fire({
                                 icon: 'error',

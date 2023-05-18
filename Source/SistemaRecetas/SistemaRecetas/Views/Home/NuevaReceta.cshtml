@@ -82,10 +82,10 @@
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
                 var fileSize = file.size; // Tamaño del archivo en bytes
-                var maxSize = 3 * 1024 * 1024; // Tamaño máximo permitido: 3MB
+                var maxSize = 2 * 1024 * 1024; // Tamaño máximo permitido: 2MB
 
-                if (fileSize > maxSize) {
-                    alert('El archivo "' + file.name + '" supera el tamaño máximo permitido de 3MB.');
+                if (fileSize >= maxSize) {
+                    alert('El archivo "' + file.name + '" supera el tamaño máximo permitido de 2MB.');
                     // Limpiar el input de archivo para deseleccionar el archivo inválido
                     document.getElementById('imagenes').value = '';
                     return;
