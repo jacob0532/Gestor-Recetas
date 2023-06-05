@@ -201,7 +201,7 @@ namespace CapaDatos.Receta
                     {
                         while (reader.Read())
                         {
-                            ingredientes += reader.GetString(1) + "-";
+                            ingredientes += reader.GetString(1) + ",";
                         }
                     }
                 }
@@ -226,7 +226,7 @@ namespace CapaDatos.Receta
                     {
                         while (reader.Read())
                         {
-                            pasos += reader.GetString(1) + "-";
+                            pasos += reader.GetString(1) + ",";
                         }
                     }
                 }

@@ -141,13 +141,13 @@
                             console.log(pasos[i]);
                         }*/
 
-                        var ingredientes = json.ingredientes.split("-");
+                        var ingredientes = json.ingredientes.split(",");
                         var listaIngredientes = "";
                         var listaPasos = "";
                         for (let i = 0; i < ingredientes.length - 1; i++) {
                             listaIngredientes += '<li class="list-group-item fw-bold border-0" style="background-color: transparent;color:#fff;">' + ingredientes[i] + '</li>'
                         }
-                        var pasos = json.pasos.split("-");
+                        var pasos = json.pasos.split(",");
                         for (let i = 0; i < pasos.length - 1; i++) {
                             listaPasos += '<li class="list-group-item fw-bold border-0" style="background-color: transparent;color:#fff;">' + pasos[i] + '</li>'
                         }

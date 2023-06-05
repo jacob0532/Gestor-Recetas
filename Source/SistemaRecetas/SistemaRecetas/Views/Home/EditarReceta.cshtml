@@ -47,7 +47,7 @@
                 <h5>Materiales:</h5>
             </div>
             <div class="col-md-7">
-                <textarea id="materiales" class="form-control" rows="6">@ViewBag.Pasos</textarea>
+                <textarea id="materiales" class="form-control" rows="6">@ViewBag.Ingredientes</textarea>
             </div>
         </div>
         <div class="row">
@@ -55,7 +55,7 @@
                 <h5>Procedimiento:</h5>
             </div>
             <div class="col-md-7">
-                <textarea id="procedimientos" class="form-control" rows="6">@ViewBag.Descripcion</textarea>
+                <textarea id="procedimientos" class="form-control" rows="6">@ViewBag.Pasos</textarea>
             </div>
         </div>
         <div class="row">
@@ -217,7 +217,7 @@
                             else{
                                 swal.fire({
                                     icon: 'success',
-                                    html: '<h5>Datos Modificados Correctamente</h5>',
+                                    html: '<h5>Datos Modificados Correctamente [No se agregaron imagenes]</h5>',
                                     showConfirmButton: true
                                 });
                                 sleep(2000).then(() => {
